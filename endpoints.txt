@@ -1,0 +1,68 @@
+POST  /api/auth/register        // Регистрация  //✅
+POST  /api/auth/login           // Вход  //✅
+POST  /api/auth/vefify          // Подтверждение входа кодом  //✅
+POST  /api/auth/login           // Выход  //✅
+GET  /api/auth/activate/:link   // Ссылка-авторизация  //✅
+GET  /api/auth/refresh          // Перезаписывать аксесс токен, в случае если он умер  //✅
+GET  /api/auth/me               // Получить текущего пользователя  //✅
+PUT  /api/auth/profile          // Обновить профиль + аватар  //✅
+PUT  /api/auth/change-password  // Поменять пароль  //✅
+PUT  /api/auth/verify-password   // Подтвердить смену пароля кодом  //✅
+
+
+GET  /api/accounts              // Получить все аккаунты (с пагинацией и фильтрами)  //✅
+GET  /api/accounts/:id          // Получить конкретный аккаунт  //✅
+
+
+GET  /api/orders/my             // Мои заказы  //✅
+POST  /api/orders               // Создать заказ  //✅
+PUT  /api/orders/:id/cancel     // Отменить заказ  //✅
+
+POST  /api/reviews              // Оставить отзыв  //✅
+GET  /api/reviews               // Получить одобренные отзывы  //✅
+GET  /api/reviews/my            // Мои отзывы  //✅
+
+
+GET  /api/balance                               // Получить баланс пользователя  //✅
+GET  /api/balance/history                       // История пополнений и списаний  //✅
+POST /api/balance/deposit-request               // Создать заявку на пополнение баланса  //✅
+PUT  /api/balance/deposit-request/:id/cancel    // Отменить заявку на пополнение баланса  //✅
+
+GET  /api/balance/payment-methods               // Получить реквизиты для оплаты  //✅
+
+
+// Управление заказами
+GET  /api/admin/orders                  // Все заказы с фильтрами  //✅
+PUT  /api/admin/orders/:id/approve      // Принять оплату  //✅
+PUT  /api/admin/orders/:id/reject       // Отклонить заказ  //✅
+PUT  /api/admin/orders/:id/verifyuser   // Проверить пользователя  //✅
+PUT  /api/admin/orders/:id/complete     // Выдать аккаунт  //✅
+PUT  /api/admin/orders/:id/extend       // Продлить аренду (ручное)  //✅
+
+
+// Модерация отзывов
+GET  /api/admin/reviews                 // Все отзывы для модерации  //✅
+PUT  /api/admin/reviews/:id/approve     // Одобрить отзыв  //✅
+PUT  /api/admin/reviews/:id/reject      // Отклонить отзыв  //✅
+
+
+// Управление реквизитами
+GET  /api/admin/payment-methods        // Получить все реквизиты  //✅
+POST  /api/admin/payment-methods        // Добавить реквизиты  //✅
+PUT  /api/admin/payment-methods/:id     // Обновить реквизиты  //✅
+DELETE  /api/admin/payment-methods/:id  // Удалить реквизиты  //✅
+
+
+GET  /api/admin/deposit-requests                // Все заявки на пополнение баланса  //✅
+PUT  /api/admin/deposit-requests/:id/approve    // Подтвердить пополнение баланса  //✅
+PUT  /api/admin/deposit-requests/:id/reject     // Отклонить пополнение баланса  //✅
+
+
+POST  /api/admin/accounts               // Создать новый аккаунт  //✅
+PUT  /api/admin/accounts/:id            // Обновить аккаунт  //✅
+DELETE  /api/admin/accounts/:id         // Удалить аккаунт  //✅
+PUT  /api/admin/accounts/:id/status     // Изменить статус аккаунта  //✅
+
+
+GET  /api/admin/users               // Получить всех пользователей  //✅
+PUT  /api/admin/users/:id/status    // Заблокировать/разблокировать пользователя  //✅
