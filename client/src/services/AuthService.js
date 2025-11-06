@@ -1,4 +1,4 @@
-import $api from "../http";
+import $api from "./Api";
 
 export default class AuthService {
 

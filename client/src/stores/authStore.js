@@ -2,7 +2,7 @@ import {makeAutoObservable} from 'mobx'
 import AuthService from '../services/AuthService'
 import axios from 'axios'
 
-export default class Store {
+export default class authStore {
     
     user = {}
     userId = ''

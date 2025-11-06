@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { Context } from "../main"
+import { Context } from "../../../main"
 import { observer } from 'mobx-react-lite'
 
 const LoginForm = observer(() => {

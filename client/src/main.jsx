@@ -1,9 +1,9 @@
 import { createContext, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
-import Store from './store/store.js'
+import authStore from './stores/authStore.js'
 
-const store = new Store()
+const store = new authStore()
 
 export const Context = createContext({
   store
