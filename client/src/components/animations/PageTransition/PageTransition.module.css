@@ -1,0 +1,56 @@
+/* components/animations/PageTransition/PageTransition.module.css */
+.pageTransition {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.transitionContainer {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all var(--duration, 300ms) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transitionContainer.transitioning {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Slide transition variant */
+.transitionContainer.slide {
+  transform: translateX(0);
+}
+
+.transitionContainer.slide.transitioning {
+  transform: translateX(-20px);
+  opacity: 0;
+}
+
+.transitionContainer.slide.next {
+  transform: translateX(20px);
+}
+
+.transitionContainer.slide.next.transitioning {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Fade transition variant */
+.transitionContainer.fade {
+  opacity: 1;
+}
+
+.transitionContainer.fade.transitioning {
+  opacity: 0;
+}
+
+/* Scale transition variant */
+.transitionContainer.scale {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.transitionContainer.scale.transitioning {
+  transform: scale(0.95);
+  opacity: 0;
+}

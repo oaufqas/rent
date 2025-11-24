@@ -1,25 +1,34 @@
-import $api from "./Api";
+import $api from "./api"
 
-export default class AuthService {
+export const authService = {
+  register: (email, password) => $api.post('/auth/register', {email, password}),
+  
 
-    static async login(email, password) {
-        return $api.post('/auth/login', {email, password})
-    }
+  login: (email, password) => $api.post('/auth/login', {email, password}),
+  
 
-    static async verify(userId, code) {
-        return $api.post('/auth/verify', {userId, code})
-    }
-    
-    static async registration(email, password) {
-        return $api.post('/auth/register', {email, password})
-    }
-    
-    static async logout() {
-        return $api.post('/auth/logout')
-    }
+  verify: (userId, code) => $api.post('/auth/verify', { userId, code }),
+  
 
-    static async gtUsers() {
-        return $api.get('/auth/users')
-    }
+  logout: () => $api.post('/auth/logout'),
+  
+  
+  activate: (link) => $api.get(`/auth/activate/${link}`),
+  
 
+  refresh: () => $api.get('/auth/refresh'),
+  
+
+  getMe: () => $api.get('/auth/me'),
+  
+
+  updateProfile: (profileData) => $api.put('/auth/profile', profileData),
+  
+
+  changePassword: (email) => $api.put('/auth/change-password', {email}),
+  
+
+  verifyPassword: (userId, password, code) => $api.put('/auth/verify-password', { userId, password, code }),
 }
+
+export default authService

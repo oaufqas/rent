@@ -1,0 +1,437 @@
+.balancePage {
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.balanceCard {
+  background: linear-gradient(135deg, var(--color-accent-red), var(--color-accent-red-dark));
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 40px;
+  box-shadow: 0 20px 40px rgba(220, 38, 38, 0.3);
+}
+
+.balanceInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+.balanceAmount {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.amount {
+  color: white;
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.balanceActions {
+  display: flex;
+  gap: 16px;
+}
+
+.quickDeposit {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.sectionTitle {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+}
+
+.quickAmounts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+}
+
+.quickAmount {
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  padding: 16px;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.quickAmount:hover {
+  border-color: var(--color-accent-red);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.recentTransactions {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 30px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.transactionsList {
+  min-height: 200px;
+}
+
+.emptyTransactions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.emptyTransactions h4 {
+  color: white;
+  font-size: 1.25rem;
+  margin: 0 0 8px 0;
+}
+
+.emptyTransactions p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* Модальное окно */
+.depositModal {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.amountSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.amountLabel {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.amountInput {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 16px;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-accent-red);
+}
+
+.currency {
+  position: absolute;
+  right: 16px;
+  color: var(--color-text-secondary);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.amountHint {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  margin: 0;
+  text-align: center;
+}
+
+.methodsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.methodsLabel {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.paymentMethods {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.method {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.method:hover {
+  border-color: var(--color-accent-red);
+}
+
+.method.selected {
+  border-color: var(--color-accent-red);
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.radio {
+  display: none;
+}
+
+.methodInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.methodName {
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.methodDescription {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+}
+
+.methodFee {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.depositSummary {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.summaryRow:not(:last-child) {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.finalAmount {
+  color: var(--color-accent-red);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.modalActions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+/* Добавь в BalancePage.module.css */
+
+.error {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid var(--color-accent-red);
+  color: var(--color-accent-red);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.checkUpload {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.uploadHint {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  margin: 8px 0 0 0;
+}
+
+.methodType {
+  color: var(--color-accent-red);
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(220, 38, 38, 0.1);
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* Улучшенные стили для методов оплаты */
+.method {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.method:hover {
+  border-color: var(--color-accent-red);
+}
+
+.method.selected {
+  border-color: var(--color-accent-red);
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.radio {
+  display: none;
+}
+
+.methodInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.breadcrumbs a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-accent-red);
+}
+
+.methodName {
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.methodDescription {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .balanceInfo {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .balanceActions {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .amount {
+    font-size: 2.5rem;
+  }
+  
+  .quickAmounts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .modalActions {
+    flex-direction: column;
+  }
+}

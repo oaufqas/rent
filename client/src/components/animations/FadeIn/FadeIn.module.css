@@ -1,0 +1,45 @@
+/* components/animations/FadeIn/FadeIn.module.css */
+.fadeIn {
+  opacity: 0;
+  transform: translateY(var(--distance, 30px));
+  transition: all var(--duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: var(--delay, 0ms);
+}
+
+.fadeIn.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Direction variations */
+.fadeIn[style*="--direction:left"] {
+  transform: translateX(calc(var(--distance) * -1));
+}
+
+.fadeIn[style*="--direction:left"].visible {
+  transform: translateX(0);
+}
+
+.fadeIn[style*="--direction:right"] {
+  transform: translateX(var(--distance));
+}
+
+.fadeIn[style*="--direction:right"].visible {
+  transform: translateX(0);
+}
+
+.fadeIn[style*="--direction:down"] {
+  transform: translateY(calc(var(--distance) * -1));
+}
+
+.fadeIn[style*="--direction:down"].visible {
+  transform: translateY(0);
+}
+
+.fadeIn[style*="--direction:scale"] {
+  transform: scale(0.9);
+}
+
+.fadeIn[style*="--direction:scale"].visible {
+  transform: scale(1);
+}

@@ -1,0 +1,14 @@
+.customInput {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--color-bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.note {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  margin: 8px 0 0 0;
+  font-style: italic;
+}

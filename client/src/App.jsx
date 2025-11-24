@@ -3,19 +3,32 @@ import { Context } from './main'
 import { observer } from 'mobx-react-lite'
 import { BrowserRouter } from 'react-router-dom'
 import AppRouter from './router/AppRouter'
+import Loader from './components/ui/Loader/Loader'
+
 
 const App = observer(() => {
   
   const {store} = useContext(Context)
+  const [isAppReady, setIsAppReady] = useState(false)
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      store.checkAuth()
+    const initializeApp = async () => {
+      if (localStorage.getItem('token')) {
+        await store.checkAuth()
+        // console.log(store.isAuth)
+        // console.log(store.user)
+      } else {
+        store.setLoading(false)
+      }
+      setIsAppReady(true)
     }
-  }, [])
 
-  if (store.isLoading) {
-    return <div>Loading...</div>
+
+    initializeApp()
+  }, [store])
+
+  if (!isAppReady) {
+    return <Loader fullScreen />
   }
 
   return (

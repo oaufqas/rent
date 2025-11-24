@@ -1,0 +1,109 @@
+.form {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.title {
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+}
+
+.error {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid var(--color-accent-red);
+  color: var(--color-accent-red);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.ratingSection {
+  margin-bottom: 20px;
+}
+
+.ratingLabel {
+  display: block;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.star {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.star.filled {
+  color: #fbbf24;
+}
+
+.star:hover {
+  color: #fbbf24;
+  transform: scale(1.1);
+}
+
+.ratingValue {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.textareaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.label {
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.required {
+  color: var(--color-accent-red);
+  margin-left: 4px;
+}
+
+.textarea {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: white;
+  font-size: 16px;
+  font-family: inherit;
+  resize: vertical;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.textarea::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.textarea:focus {
+  border-color: var(--color-accent-red);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.submitBtn {
+  width: 100%;
+}

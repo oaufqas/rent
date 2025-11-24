@@ -1,0 +1,1 @@
+const n=(t,o={})=>{const e=new Date(t),i={timeZone:"Europe/Moscow",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:!1};return e.toLocaleString("ru-RU",{...i,...o})};export{n as f};

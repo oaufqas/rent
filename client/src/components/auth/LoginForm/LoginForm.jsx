@@ -1,42 +1,103 @@
-import { useContext, useState } from "react"
-import { Context } from "../../../main"
+import { useContext, useState } from 'react'
+import { motion } from 'framer-motion'
 import { observer } from 'mobx-react-lite'
+import { Link } from 'react-router-dom'
+import { store } from '../../../stores/store'
+import { ROUTES } from '../../../utils/constants'
+import Button from '../../ui/Button/Button'
+import Input from '../../ui/Input/Input'
+import styles from './LoginForm.module.css'
+import { Context } from '../../../main'
 
-const LoginForm = observer(() => {
-    let usId
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [verifyCode, setVerifyCode] = useState('')
-    const {store} = useContext(Context)
+const LoginForm = observer(({ onSuccess }) => {
+  const { store } = useContext(Context)
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  })
 
-    return (
-        <div>
-            <input 
-            onChange={e => setEmail(e.target.value)}
-            value={email}
-            type="text" 
-            placeholder="Email"
-            />
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-            <input 
-            onChange={e => setPassword(e.target.value)}
-            value={password}
-            type="password" 
-            placeholder="Password"
-            />
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }))
+    setError('')
+  }
 
-            <input 
-            onChange={e => setVerifyCode(e.target.value)}
-            value={verifyCode}
-            type="text" 
-            placeholder="code"
-            />
-            <button onClick={() => store.login(email, password)}>Выслать код</button>
-            <button onClick={() => store.verifyLogin(store.userId, verifyCode)}>Логин</button>
-            <button onClick={() => store.registration(email, password)}>Регистрация</button>
-            <button onClick={() => store.logout()}>Выход</button>
-        </div>
-    )
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setLoading(true)
+    setError('')
+
+    try {
+      const data = await store.login(formData.email, formData.password)
+      onSuccess?.(data)
+    } catch (err) {
+      console.error(err)
+      setError(err.response?.data?.message || 'Ошибка входа')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <motion.form
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3 }}
+      onSubmit={handleSubmit}
+      className={styles.form}
+    >
+      <h2 className={styles.title}>Вход в аккаунт</h2>
+      
+      {error && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className={styles.error}
+        >
+          {error}
+        </motion.div>
+      )}
+
+      <Input
+        label="Email"
+        type="email"
+        name="email"
+        value={formData.email}
+        onChange={handleChange}
+        required
+        placeholder="your@email.com"
+      />
+
+      <Input
+        label="Пароль"
+        type="password"
+        name="password"
+        value={formData.password}
+        onChange={handleChange}
+        required
+        placeholder="Введите пароль"
+      />
+
+      <Button
+        type="submit"
+        variant="primary"
+        size="large"
+        loading={loading}
+        className={styles.submitBtn}
+      >
+        Войти
+      </Button>
+
+      <p className={styles.registerLink}>
+        Нет аккаунта? <Link to={ROUTES.REGISTER}>Зарегистрироваться</Link>
+      </p>
+    </motion.form>
+  )
 })
 
 export default LoginForm

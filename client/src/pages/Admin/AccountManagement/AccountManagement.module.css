@@ -1,0 +1,862 @@
+.accountManagement {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.title {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Стили для ячейки статуса */
+.statusCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusChangeBtn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statusChangeBtn:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Стили для модального окна статуса */
+.statusModal {
+  padding: 0;
+}
+
+.accountPreview {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: var(--color-bg-secondary);
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.previewImage {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid var(--color-border);
+}
+
+.previewInfo {
+  flex: 1;
+}
+
+.previewTitle {
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.previewNumber {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  margin: 0 0 2px 0;
+}
+
+.previewPrice {
+  color: var(--color-success);
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.statusForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.select, .input {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 12px;
+  color: white;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.select:focus, .input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.hoursHint {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.statusInfo {
+  padding: 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.infoFree {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: rgb(103, 184, 50);
+}
+
+.infoRented {
+  background: rgba(234, 179, 8, 0.1);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  color: rgb(223, 200, 69);
+}
+
+.infoUnavailable {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: rgb(221, 68, 68);
+}
+
+.modalActions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .accountPreview {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .modalActions {
+    flex-direction: column;
+  }
+  
+  .statusCell {
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+  }
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.search {
+  position: relative;
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-secondary);
+  z-index: 2;
+}
+
+.searchInput {
+  width: 100%;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px 12px 12px 40px;
+  color: white;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  height: 44px;
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-accent-red);
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.filterSelect {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+  font-family: inherit;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%236B7280' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  padding-right: 36px;
+  height: 44px;
+  box-sizing: border-box;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: var(--color-accent-red);
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
+}
+
+.filterSelect option {
+  background: var(--color-bg-card);
+  color: white;
+  padding: 8px;
+}
+
+/* Таблица */
+.tableContainer {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.table th {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-align: left;
+  padding: 16px 12px;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 16px 12px;
+  border-bottom: 1px solid var(--color-border);
+  color: white;
+  font-size: 0.875rem;
+  vertical-align: middle;
+}
+
+.tableRow:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.tableRow:last-child td {
+  border-bottom: none;
+}
+
+/* Стили для ячеек таблицы */
+.accountId {
+  color: var(--color-accent-red);
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+.accountInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.accountImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.accountTitle {
+  font-weight: 500;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accountNumber {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 200px;
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-secondary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.moreFeatures {
+  background: var(--color-accent-red);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actionBtn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--color-text-secondary);
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.actionBtn:hover {
+  background: var(--color-accent-red);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.actionBtn.delete:hover {
+  background: rgb(239, 68, 68);
+}
+
+/* Статусы */
+.status {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  min-width: 80px;
+  text-align: center;
+}
+
+.status.free {
+  background: rgba(34, 197, 94, 0.1);
+  color: rgb(34, 197, 94);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.status.rented {
+  background: rgba(234, 179, 8, 0.1);
+  color: rgb(234, 179, 8);
+  border: 1px solid rgba(234, 179, 8, 0.2);
+}
+
+.status.unavailable {
+  background: rgba(239, 68, 68, 0.1);
+  color: rgb(239, 68, 68);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+/* Цена */
+.price {
+  color: var(--color-accent-red);
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+/* Состояния загрузки */
+.loading {
+  text-align: center;
+  padding: 3rem;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.loadingSpinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid var(--color-accent-red);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Пустое состояние */
+.emptyState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.emptyContent {
+  max-width: 400px;
+}
+
+.emptyIcon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.emptyTitle {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.emptyText {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+}
+
+/* Добавляем в конец файла */
+
+/* МОБИЛЬНАЯ АДАПТАЦИЯ - КАРТОЧКИ */
+.mobileAccounts {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobileAccountCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobileAccountHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.mobileAccountId {
+  color: var(--color-accent-red);
+  font-weight: 700;
+  font-size: 1.1rem;
+  font-family: 'Courier New', monospace;
+}
+
+.mobileAccountMain {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobileAccountImage {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.mobileAccountDetails {
+  flex: 1;
+}
+
+.mobileAccountTitle {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 4px 0;
+}
+
+.mobileAccountNumber {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.mobileAccountInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobileInfoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobileInfoRow:last-child {
+  border-bottom: none;
+}
+
+.mobileInfoLabel {
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.mobileInfoValue {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: right;
+}
+
+.mobileFeatures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 8px 0;
+}
+
+.mobileFeature {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-secondary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.mobileActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.mobileActions button {
+  flex: 1;
+  min-width: 100px;
+  font-size: 0.8rem;
+  padding: 8px 12px;
+}
+
+.mobileStatusCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .accountManagement {
+    padding: 16px;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .controls {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .search {
+    max-width: none;
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .filters {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .filterSelect {
+    flex: 1;
+    min-width: 120px;
+  }
+  
+  /* Скрываем таблицу на мобильных, показываем карточки */
+  .tableContainer {
+    display: none;
+  }
+  
+  .mobileAccounts {
+    display: flex;
+  }
+  
+  .mobileAccountCard {
+    margin: 0 -8px;
+    width: calc(100% + 16px);
+  }
+}
+
+@media (max-width: 480px) {
+  .filters {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .filterSelect {
+    width: 100%;
+  }
+  
+  .mobileAccountHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .mobileAccountMain {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  .mobileAccountImage {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .mobileActions {
+    flex-direction: column;
+  }
+  
+  .mobileActions button {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  .mobileInfoRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .mobileInfoValue {
+    text-align: left;
+  }
+  
+  .mobileStatusCell {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .controls {
+    flex-wrap: wrap;
+  }
+  
+  .search {
+    min-width: 250px;
+    flex: 2;
+  }
+  
+  .filters {
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .accountManagement {
+    padding: 16px;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .controls {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .search {
+    max-width: none;
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .filters {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  
+  .filterSelect {
+    flex: 1;
+    min-width: 120px;
+  }
+  
+  .tableContainer {
+    margin: 0 -16px;
+    width: calc(100% + 32px);
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  
+  .accountInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .accountImage {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .filters {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .filterSelect {
+    width: 100%;
+  }
+  
+  .features {
+    max-width: 150px;
+  }
+  
+  .feature, .moreFeatures {
+    font-size: 0.65rem;
+    padding: 3px 6px;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+  
+  .actionBtn {
+    width: 100%;
+    height: 40px;
+  }
+}

@@ -8,8 +8,6 @@ export const ROUTES = {
   VERIFICATION: '/auth/verification',
   ACTIVATION_REQUIRED: '/auth/activation-required',
   
-
-  ACCOUNTS: '/accounts',
   ACCOUNT_DETAIL: '/accounts/:id',
   
   ORDERS: '/orders',
@@ -19,18 +17,27 @@ export const ROUTES = {
   BALANCE: '/balance',
   TRANSACTION_HISTORY: '/balance/history',
 
+  CREATE_REVIEW: '/create-review/:id',
+
   ADMIN: '/admin',
   ADMIN_ORDERS: '/admin/orders',
   ADMIN_USERS: '/admin/users',
   ADMIN_ACCOUNTS: '/admin/accounts',
   ADMIN_REVIEWS: '/admin/reviews',
-  ADMIN_TRANSACTIONS: '/admin/transactions'
+  ADMIN_PAYMETHODS: '/admin/paymethods',
+  ADMIN_TRANSACTIONS: '/admin/transactions',
+  ADMIN_CREATE_ACCOUNT: '/admin/accounts/create',
+  ADMIN_EDIT_ACCOUNT: '/admin/accounts/edit/:id',
+
+  RULES: '/rules'
 }
 
 export const generatePath = {
   accountDetail: (id) => `/accounts/${id}`,
   orderDetail: (id) => `/orders/${id}`,
-  adminOrder: (id) => `/admin/orders/${id}`
+  adminOrder: (id) => `/admin/orders/${id}`,
+  createReview: (id) => `/create-review/${id}`,
+  editAccount: (id) => `/admin/accounts/edit/${id}`
 }
 
 export const USER_ROLES = {
@@ -39,8 +46,8 @@ export const USER_ROLES = {
 }
 
 export const ACCOUNT_STATUS = {
-  AVAILABLE: 'available',
-  OCCUPIED: 'occupied',
+  AVAILABLE: 'free',
+  OCCUPIED: 'rented',
   UNAVAILABLE: 'unavailable'
 }
 

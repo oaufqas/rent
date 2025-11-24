@@ -4,7 +4,7 @@ class OrderController {
     
     async myOrders(req, res, next) {
         try {
-            const usId = await req.user.id
+            const usId = req.user.id
             const orderData = await orderService.getOrdersFromUser(usId)
 
             return res.json(orderData)
@@ -17,7 +17,7 @@ class OrderController {
     
     async createOrder(req, res, next) {
         try {
-            const usId = await req.user.id
+            const usId = req.user.id
             const {amount, rentPeriod, accountId, verificationPlatform, userNameInPlatform, paymentMethod} = req.body
             const {check} = req.files || {}
             
@@ -33,7 +33,7 @@ class OrderController {
 
     async cancelOrder(req, res, next) {
         try {
-            const usId = await req.user.id
+            const usId = req.user.id
             const id = req.params.id
 
             const cancelData = await orderService.revokeOrder(usId, id)

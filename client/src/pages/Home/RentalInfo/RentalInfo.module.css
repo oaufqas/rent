@@ -1,0 +1,79 @@
+.section {
+  padding: 80px 0;
+  background: var(--color-bg-secondary);
+  border-radius: 40px;
+  margin: 40px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 16px 0;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+}
+
+.feature {
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.feature:hover {
+  border-color: var(--color-accent-red);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--color-accent-red), var(--color-accent-red-dark));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px auto;
+  color: white;
+}
+
+.featureTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 12px 0;
+}
+
+.featureDescription {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}

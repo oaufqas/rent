@@ -25,7 +25,11 @@ class AutoStatusService {
             
             for (const order of expiredOrders) {
                 try {
-                    await emailService.sendWarningMail(order.user.email, order, 5)
+                    try {
+                        emailService.sendWarningMail(order.user.email, order, 5)
+                    } catch (e) {
+                        throw e
+                    }
                     await order.update({ 
                         canSendMail: false,
                     });

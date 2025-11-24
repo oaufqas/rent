@@ -1,0 +1,63 @@
+.accountGridSection {
+  width: 100%;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.resultsInfo {
+  margin-bottom: 24px;
+}
+
+.resultsCount {
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  margin: 0;
+}
+
+.count {
+  color: var(--color-accent-red);
+  font-weight: 600;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.noResults {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.noResultsContent {
+  max-width: 400px;
+}
+
+.noResultsIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.noResultsTitle {
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.noResultsText {
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  margin: 0;
+  line-height: 1.5;
+}

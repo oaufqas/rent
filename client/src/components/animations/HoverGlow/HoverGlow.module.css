@@ -1,0 +1,122 @@
+/* components/animations/HoverGlow/HoverGlow.module.css */
+.hoverGlow {
+  position: relative;
+  border-radius: var(--border-radius, 8px);
+  background: var(--bg-card, #1a1a1a);
+  border: 1px solid var(--border-color, #374151);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hoverGlow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: var(--border-radius, 8px);
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(220, 38, 38, 0.1) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hoverGlow:hover::before {
+  opacity: 1;
+}
+
+.glowEffect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    600px circle at var(--x, 50%) var(--y, 50%),
+    rgba(220, 38, 38, 0.1) 0%,
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.glowEffect[data-hovered="true"] {
+  opacity: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Intensity variations */
+.hoverGlow.low .glowEffect {
+  background: radial-gradient(
+    400px circle at var(--x, 50%) var(--y, 50%),
+    rgba(220, 38, 38, 0.05) 0%,
+    transparent 40%
+  );
+}
+
+.hoverGlow.medium .glowEffect {
+  background: radial-gradient(
+    600px circle at var(--x, 50%) var(--y, 50%),
+    rgba(220, 38, 38, 0.1) 0%,
+    transparent 40%
+  );
+}
+
+.hoverGlow.high .glowEffect {
+  background: radial-gradient(
+    800px circle at var(--x, 50%) var(--y, 50%),
+    rgba(220, 38, 38, 0.15) 0%,
+    transparent 40%
+  );
+}
+
+/* Color variations */
+.hoverGlow.accent .glowEffect {
+  background: radial-gradient(
+    600px circle at var(--x, 50%) var(--y, 50%),
+    rgba(220, 38, 38, 0.1) 0%,
+    transparent 40%
+  );
+}
+
+.hoverGlow.success .glowEffect {
+  background: radial-gradient(
+    600px circle at var(--x, 50%) var(--y, 50%),
+    rgba(16, 185, 129, 0.1) 0%,
+    transparent 40%
+  );
+}
+
+.hoverGlow.warning .glowEffect {
+  background: radial-gradient(
+    600px circle at var(--x, 50%) var(--y, 50%),
+    rgba(245, 158, 11, 0.1) 0%,
+    transparent 40%
+  );
+}
+
+.hoverGlow.info .glowEffect {
+  background: radial-gradient(
+    600px circle at var(--x, 50%) var(--y, 50%),
+    rgba(59, 130, 246, 0.1) 0%,
+    transparent 40%
+  );
+}
+
+/* Hover state enhancements */
+.hoverGlow:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-red, #dc2626);
+  box-shadow: 0 10px 30px -10px rgba(220, 38, 38, 0.3);
+}

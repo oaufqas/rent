@@ -1,0 +1,507 @@
+.accountForm {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.headerContent {
+  flex: 1;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 0;
+  margin-bottom: 12px;
+  transition: color 0.3s ease;
+}
+
+.backButton:hover {
+  color: var(--color-accent-red);
+}
+
+.title {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.saveButton {
+  flex-shrink: 0;
+}
+
+.form {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 30px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.sectionTitle {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.input, .select, .textarea {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: white;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.input:focus, .select:focus, .textarea:focus {
+  outline: none;
+  border-color: var(--color-accent-red);
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
+}
+
+.input::placeholder, .textarea::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%236B7280' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  padding-right: 36px;
+}
+
+/* Загрузка изображения */
+.imageUpload {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.uploadArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px 20px;
+  border: 2px dashed var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.uploadArea:hover {
+  border-color: var(--color-accent-red);
+  color: var(--color-accent-red);
+}
+
+.fileInput {
+  display: none;
+}
+
+.imagePreview {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+.previewImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.removeImage {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: white;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.removeImage:hover {
+  background: var(--color-accent-red);
+}
+
+/* Добавьте эти стили в AccountForm.module.css */
+
+.featuresSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.selectedFeatures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 44px;
+  align-items: flex-start;
+}
+
+.featureChip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  border-radius: 6px;
+  color: var(--color-accent-red);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.featureLabel {
+  color: white;
+}
+
+.removeFeature {
+  background: none;
+  border: none;
+  color: var(--color-accent-red);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.removeFeature:hover {
+  background: var(--color-accent-red);
+  color: white;
+}
+
+.noFeatures {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  font-style: italic;
+  padding: 12px 0;
+}
+
+.select {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: white;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%236B7280' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  padding-right: 36px;
+}
+
+.select:focus {
+  outline: none;
+  border-color: var(--color-accent-red);
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
+}
+
+.select option {
+  background: var(--color-bg-secondary);
+  color: white;
+}
+
+.select option:disabled {
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .featureChip {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+  
+  .selectedFeatures {
+    min-height: 40px;
+  }
+}
+
+
+.mediaPreview {
+  margin-top: 12px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.previewMedia {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Адаптация для FileUpload компонента */
+.fileUpload {
+  margin-bottom: 0;
+}
+
+/* Добавь в AccountForm.module.css */
+
+.fileUploadSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Добавь эти стили в существующий CSS */
+
+.fileUploadSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.uploadButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  border: 2px dashed var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.uploadButton:hover {
+  border-color: var(--color-accent-red);
+  color: var(--color-accent-red);
+  background: rgba(220, 38, 38, 0.05);
+}
+
+.mediaPreview {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.previewMedia {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.removeMedia {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: white;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.removeMedia:hover {
+  background: var(--color-accent-red);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .uploadButton {
+    padding: 12px;
+    flex-direction: column;
+    gap: 6px;
+  }
+  
+  .uploadButton span {
+    font-size: 0.875rem;
+  }
+}
+
+.fileInput {
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-bg-secondary);
+  color: white;
+}
+
+.mediaPreview {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.previewMedia {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.removeMedia {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: white;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.removeMedia:hover {
+  background: var(--color-accent-red);
+}
+
+/* Улучшения для мобильных устройств */
+@media (max-width: 768px) {
+  .mediaPreview {
+    margin-top: 8px;
+  }
+  
+  .previewMedia {
+    max-height: 150px;
+  }
+}
+
+/* Мобильная адаптация */
+@media (max-width: 1024px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .accountForm {
+    padding: 16px;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .form {
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .featureItem {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .removeFeature {
+    width: 100%;
+    padding: 12px;
+  }
+}

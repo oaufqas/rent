@@ -35,7 +35,7 @@ class PaymentService {
 
 
 
-    async addPaymentMethods(name, details) {
+    async addPaymentMethods(name, details, type) {
         try{
             const check = await db.PaymentMethod.findOne({where: {name}})
 
@@ -43,7 +43,7 @@ class PaymentService {
                 throw ApiError.BadRequest('Payment method with this name already exists')
             }
             
-            const payData = await db.PaymentMethod.create({name, details, isActive: true})
+            const payData = await db.PaymentMethod.create({name, details, type, isActive: true})
             return payData
         } catch (e) {
             throw ApiError.ElseError(e)
@@ -52,7 +52,7 @@ class PaymentService {
     
     
     
-    async changePaymentMethods(id, name, details, status) {
+    async changePaymentMethods(id, name, details, status, type) {
         try{
             const check = await db.PaymentMethod.findByPk(id)
             let checkName
@@ -64,16 +64,16 @@ class PaymentService {
                 throw ApiError.BadRequest('Payment method not found')
             }
 
-            if (checkName) {
+            if (checkName && checkName.name != check.name) {
                 throw ApiError.BadRequest('Payment method with this name already exists')
             }
 
-            const isActive = status === 'true'
             const changeData = {}
 
             if (name !== undefined) changeData.name = name
             if (details !== undefined) changeData.details = details
-            if (isActive !== undefined) changeData.isActive = isActive
+            if (type !== undefined) changeData.type = type
+            if (status !== undefined) changeData.isActive = status
 
             await check.update(changeData)
 

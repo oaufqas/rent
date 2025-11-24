@@ -7,9 +7,9 @@ import autoStatusService from '../services/autoStatus-service.js';
 // });
 
 // Запуск каждую минуту 
-// cron.schedule('* * * * *', async () => {
-//     await autoStatusService.runAllChecks();
-// });
+cron.schedule('* * * * *', async () => {
+    await autoStatusService.runAllChecks();
+});
 
 export const startCronJobs = () => {
     console.log('Automatic status checking has been launched...');

@@ -1,0 +1,61 @@
+.myReviews {
+  width: 100%;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.header h2 {
+  color: white;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.header p {
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.emptyState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 40px;
+}
+
+.emptyContent {
+  text-align: center;
+  max-width: 400px;
+}
+
+.emptyTitle {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.emptyText {
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}

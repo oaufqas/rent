@@ -1,0 +1,168 @@
+/* VideoPlayer.module.css */
+.videoPlayer {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-bg-card);
+  cursor: pointer;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Контролы */
+.controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  padding: 20px 16px 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.controlsVisible {
+  opacity: 1;
+}
+
+/* Прогресс бар */
+.progressContainer {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  position: relative;
+}
+
+.progressBar {
+  height: 100%;
+  background: var(--color-accent-red);
+  border-radius: 2px;
+  transition: width 0.1s ease;
+}
+
+/* Нижняя часть контролов */
+.controlsBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Кнопка play/pause */
+.playPauseButton {
+  width: 44px;
+  height: 44px;
+  background: var(--color-accent-red);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.playPauseButton:hover {
+  background: #b91c1c;
+  transform: scale(1.05);
+}
+
+/* Большая центральная кнопка play */
+.centerPlayButton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.videoPlayer:not(.playing) .centerPlayButton,
+.centerPlayButton:hover {
+  opacity: 1;
+}
+
+.playButton {
+  width: 80px;
+  height: 80px;
+  background: rgba(220, 38, 38, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.playButton:hover {
+  background: rgba(220, 38, 38, 1);
+  transform: scale(1.1);
+}
+
+/* Время */
+.time {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+/* Overlay для клика когда контролы скрыты */
+.clickOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+
+/* Placeholder */
+.placeholder {
+  width: 100%;
+  height: 300px;
+  background: var(--color-bg-secondary);
+  border: 2px dashed var(--color-border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  font-size: 1.2rem;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .controls {
+    padding: 16px 12px 12px;
+  }
+  
+  .playPauseButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .playButton {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .time {
+    font-size: 12px;
+  }
+}

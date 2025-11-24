@@ -1,0 +1,213 @@
+.transactionDetails {
+  padding: 0;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detailSection {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.sectionTitle {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.detailItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.detailItem:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.detailValue {
+  color: white;
+  font-weight: 500;
+  text-align: right;
+  font-size: 14px;
+}
+
+.detailValue.primary {
+  color: var(--color-primary);
+}
+
+.statusBadge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statusBadge.success {
+  background: rgba(34, 197, 94, 0.2);
+  color: rgb(88, 196, 26);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.statusBadge.warning {
+  background: rgba(234, 179, 8, 0.2);
+  color: rgb(214, 186, 28);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.statusBadge.error {
+  background: rgba(239, 68, 68, 0.2);
+  color: rgb(228, 46, 46);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Стили для секции чека */
+.checkSection {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.checkInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.checkDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.checkName {
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.checkHint {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+.checkActions {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.noCheck {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+}
+
+.noCheckText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.noCheckTitle {
+  color: var(--color-error);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.noCheckHint {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+/* Стили для секции действий */
+.actionSection {
+  grid-column: 1 / -1;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.actionHeader {
+  margin-bottom: 16px;
+}
+
+.actionSubtitle {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  margin: 8px 0 0 0;
+}
+
+.modalActions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.approveBtn {
+  background: rgba(34, 197, 94, 0.644);
+  border-color: rgb(34, 197, 94);
+}
+
+.approveBtn:hover {
+  background: rgba(18, 224, 94, 0.9);
+}
+
+.rejectBtn {
+  background: rgba(226, 41, 41, 0.726);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.rejectBtn:hover {
+  background: rgba(239, 68, 68, 0.9);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .detailsGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .checkActions {
+    flex-direction: column;
+  }
+  
+  .modalActions {
+    flex-direction: column;
+  }
+}

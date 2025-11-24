@@ -1,0 +1,521 @@
+.dashboard {
+  min-height: 100vh;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.title {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+/* Существующие стили остаются, добавляем новые */
+
+.pendingSection {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.sectionHeader {
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.sectionSubtitle {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.pendingGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.pendingColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.columnTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pendingList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.pendingItem {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 16px;
+  transition: all 0.3s ease;
+}
+
+.pendingItem:hover {
+  border-color: var(--color-accent-red);
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.itemId {
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.itemStatus {
+  padding: 4px 8px;
+  background: rgba(234, 179, 8, 0.1);
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  color: rgb(190, 190, 17);
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.itemDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detailLabel {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+.detailValue {
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: right;
+}
+
+.amountPositive {
+  color: var(white);
+  font-weight: 600;
+}
+
+.checkButton {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: var(--color-primary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.3s ease;
+}
+
+.checkButton:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+.itemFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.itemTime {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+.orderActions, .transactionActions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Секция быстрых действий */
+.quickActionsSection {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.quickActions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.quickAction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.quickAction:hover {
+  border-color: var(--color-accent-red);
+  background: rgba(220, 38, 38, 0.05);
+  transform: translateY(-2px);
+}
+
+.quickAction span {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Стили для отсутствия pending items */
+.noPending {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.noPendingContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.noPendingIcon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.noPendingTitle {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.noPendingText {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .pendingGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pendingSection {
+    padding: 16px;
+  }
+  
+  .itemHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .itemFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .orderActions, .transactionActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .quickActions {
+    grid-template-columns: 1fr;
+  }
+  
+  .quickAction {
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: left;
+  }
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.section {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.viewAllBtn {
+  background: none;
+  border: none;
+  color: var(--color-accent-red);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.viewAllBtn:hover {
+  color: var(--color-accent-red-dark);
+}
+
+.activities {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.activity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--color-bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.activityIcon {
+  width: 32px;
+  height: 32px;
+  background: rgba(220, 38, 38, 0.1);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent-red);
+}
+
+.activityContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.activityUser {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.activityAction {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+}
+
+.activityTime {
+  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+.quickActions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.quickAction {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.quickAction:hover {
+  border-color: var(--color-accent-red);
+  color: white;
+  transform: translateX(4px);
+}
+
+.quickAction span {
+  font-weight: 500;
+}
+
+.emptyActivity {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.viewButton {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: rgb(233, 233, 240);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.3s ease;
+}
+
+.viewButton:hover {
+  background: var(--color-primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+
+.itemFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.itemTime {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+
+
+@media (max-width: 768px) {
+  .content {
+    gap: 20px;
+  }
+  
+  .section {
+    padding: 20px;
+  }
+  
+  .statsGrid {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard {
+    padding: 16px;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .activity {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .activityContent {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+}

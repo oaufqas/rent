@@ -1,0 +1,54 @@
+.calculator {
+  background: var(--color-bg-secondary);
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.label {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.price {
+  color: var(--color-accent-red);
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.discountRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.discountLabel {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.discountValue {
+  color: rgb(34, 197, 94);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.hourlyRow {
+  text-align: right;
+}
+
+.hourlyLabel {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-style: italic;
+}

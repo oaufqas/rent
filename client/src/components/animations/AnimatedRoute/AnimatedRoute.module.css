@@ -1,0 +1,87 @@
+/* components/animations/AnimatedRoute/AnimatedRoute.module.css */
+.animatedRoute {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Fade Animation */
+.animatedRoute.fade {
+  opacity: 1;
+  transition: opacity var(--duration, 400ms) ease-in-out;
+}
+
+.animatedRoute.fade.animating {
+  opacity: 0;
+}
+
+/* Slide Animation */
+.animatedRoute.slide {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all var(--duration, 400ms) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animatedRoute.slide.animating {
+  transform: translateX(30px);
+  opacity: 0;
+}
+
+.animatedRoute.slide.slideLeft {
+  transform: translateX(0);
+}
+
+.animatedRoute.slide.slideLeft.animating {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+
+/* Scale Animation */
+.animatedRoute.scale {
+  transform: scale(1);
+  opacity: 1;
+  transition: all var(--duration, 400ms) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animatedRoute.scale.animating {
+  transform: scale(0.95);
+  opacity: 0;
+}
+
+/* Flip Animation */
+.animatedRoute.flip {
+  transform: perspective(1000px) rotateY(0deg);
+  opacity: 1;
+  transition: all var(--duration, 500ms) cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.animatedRoute.flip.animating {
+  transform: perspective(1000px) rotateY(-10deg);
+  opacity: 0;
+}
+
+/* Glow Animation */
+.animatedRoute.glow {
+  opacity: 1;
+  filter: brightness(1);
+  transition: all var(--duration, 400ms) ease-in-out;
+}
+
+.animatedRoute.glow.animating {
+  opacity: 0.7;
+  filter: brightness(1.2) blur(2px);
+}
+
+/* Custom cubic-bezier transitions */
+.animatedRoute.bouncy {
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animatedRoute.smooth {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animatedRoute.sharp {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+}

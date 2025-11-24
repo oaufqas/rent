@@ -2,12 +2,13 @@ import db from '../config/models.js'
 import ApiError from '../apiErrors/api-error.js';
 import uploadService from './upload-service.js';
 import emailService from './email-service.js';
+import { Op } from 'sequelize';
 
 class OrderService {
 
     async getOrdersFromUser(userId) {
         try {
-            const ordersData = await db.Order.findAll({where: {userId}})
+            const ordersData = await db.Order.findAll({where: {userId}, include: [{model: db.Account}]})
             
             return ordersData
         } catch(e) {
@@ -71,7 +72,12 @@ class OrderService {
                 orderId: orderData.id,
             })
 
-            await emailService.sendNewOrderMail(process.env.ADMIN_EMAIL, orderData)
+            try {
+                emailService.sendNewOrderMail(process.env.ADMIN_EMAIL, orderData)
+            } catch (e) {
+                throw e
+            }
+
             return(orderData)
 
         } catch (e) {
@@ -114,7 +120,26 @@ class OrderService {
             if (userId !== undefined) searchData.userId = userId;
             if (accountId !== undefined) searchData.accountId = accountId;
 
-            const ordersData = await db.Order.findAll({where: searchData})
+            const ordersData = await db.Order.findAll({where: searchData, include: [{model: db.User}, {model: db.Account}]})
+            
+            return ordersData
+            
+        } catch (e) {
+            throw ApiError.ElseError(e)
+        }
+    }
+
+
+    async getPendingOrders() {
+        try {
+
+            const ordersData = await db.Order.findAll({
+                where: {
+                    status: {
+                        [Op.in]: ['pending', 'paid', 'verified']
+                    }
+                }, 
+                include: [{model: db.User}, {model: db.Account}]})
             
             return ordersData
             
@@ -197,7 +222,12 @@ class OrderService {
             const updateOrder = await db.Order.findByPk(id, {include: [{model: db.Account}, {model: db.Transaction}]})
             const user = await db.User.findByPk(updateOrder.userId)
 
-            await emailService.sendRentSuccessMail(user.email, updateOrder)
+            try {
+                emailService.sendRentSuccessMail(user.email, updateOrder)
+            } catch (e) {
+                throw e
+            }
+
             return updateOrder
         } catch (e) {
             throw ApiError.ElseError(e)

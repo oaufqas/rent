@@ -2,6 +2,8 @@ import { randomUUID } from 'crypto'
 import fs from 'fs/promises'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import fsSync from 'fs'
+const dir = path.dirname(fileURLToPath(import.meta.url))
 import ApiError from '../apiErrors/api-error.js';
 
 class UploadService {
@@ -102,6 +104,17 @@ class UploadService {
             throw ApiError.ElseError(e)
         }
     }
+
+
+    async getCheck(filename) {
+        const filePath = path.join(path.resolve(dir, '..', '..', 'uploads', 'checks'), filename);
+    
+        if (fsSync.existsSync(filePath)) {
+            return {filePath, filename}
+        } else {
+            throw ApiError.ElseError({ message: 'Файл не найден' })
+        }
+    };
 }
 
 export default new UploadService()

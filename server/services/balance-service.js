@@ -56,7 +56,12 @@ class BalanceService {
                 })
             })
 
-            await emailService.sendDepositMail(process.env.ADMIN_EMAIL, createTransaction)
+            try {
+                emailService.sendDepositMail(process.env.ADMIN_EMAIL, createTransaction)
+            } catch (e) {
+                throw e
+            }
+
             return createTransaction
         } catch (e) {
             throw ApiError.ElseError(e)
@@ -82,7 +87,19 @@ class BalanceService {
 
     async getAllDepositRequests() {
         try{
-            const requestsData = await db.Transaction.findAll({where: {status: 'pending'}})
+            const requestsData = await db.Transaction.findAll({include: [{model: db.User}]})
+
+            return requestsData
+        } catch (e) {
+            throw ApiError.ElseError(e)
+        }
+    }
+
+
+
+    async getPendingDepositRequests() {
+        try{
+            const requestsData = await db.Transaction.findAll({where: {status: 'pending', type: 'deposit'}, include: [{model: db.User}]})
 
             return requestsData
         } catch (e) {
@@ -111,7 +128,12 @@ class BalanceService {
             await transaction.update({status: 'completed'})
             await user.update({balance: Number(user.balance) + Number(transaction.amount)})
 
-            await emailService.sendBalanceReplenishedMail(user.email, transaction)
+            try {
+                emailService.sendBalanceReplenishedMail(user.email, transaction)
+            } catch(e) {
+                throw e
+            }
+
             return user
         } catch (e) {
             throw ApiError.ElseError(e)

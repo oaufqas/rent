@@ -1,0 +1,45 @@
+.reviewGrid {
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.loadMore {
+  display: flex;
+  justify-content: center;
+}
+
+.noReviews {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--color-text-secondary);
+}
+
+.noReviewsIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.noReviews h3 {
+  color: white;
+  font-size: 20px;
+  margin: 0 0 8px 0;
+}
+
+.noReviews p {
+  margin: 0;
+  font-size: 16px;
+}

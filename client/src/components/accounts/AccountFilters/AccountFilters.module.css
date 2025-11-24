@@ -1,0 +1,168 @@
+.filtersSection {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.filterIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-accent-red);
+}
+
+.counter {
+  background: var(--color-accent-red);
+  color: white;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.clearBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.clearBtn:hover {
+  color: var(--color-accent-red);
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.filtersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.filterButton {
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.filterButton:hover {
+  border-color: var(--color-accent-red);
+  background: rgba(220, 38, 38, 0.05);
+}
+
+.filterButton.active {
+  border-color: var(--color-accent-red);
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.filterContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.filterIcon {
+  font-size: 20px;
+  margin-top: 2px;
+}
+
+.filterText {
+  flex: 1;
+}
+
+.filterLabel {
+  display: block;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.filterDescription {
+  display: block;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.filterIndicator {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s ease;
+}
+
+.filterButton.active .filterIndicator {
+  border-color: var(--color-accent-red);
+}
+
+.indicatorDot {
+  width: 10px;
+  height: 10px;
+  background: var(--color-accent-red);
+  border-radius: 50%;
+}
+
+.activeFilters {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-accent-red);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.chip:hover {
+  background: var(--color-accent-red-dark);
+  transform: scale(1.05);
+}

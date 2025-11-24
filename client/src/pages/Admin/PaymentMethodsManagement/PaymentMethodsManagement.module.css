@@ -1,0 +1,597 @@
+.paymentMethodsManagement {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.title {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.controls {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.search {
+  position: relative;
+  flex: 1;
+  max-width: 400px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-secondary);
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 12px 12px 44px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: var(--color-accent-red);
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
+}
+
+.tableContainer {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.loading {
+  padding: 40px;
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 16px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  font-size: 14px;
+  text-align: left;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-border);
+  color: white;
+  font-size: 14px;
+}
+
+.tableRow:last-child td {
+  border-bottom: none;
+}
+
+.tableRow:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* Стили для информации о методе */
+.methodInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.methodIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  color: var(--color-primary);
+}
+
+.methodName {
+  font-weight: 500;
+  color: white;
+}
+
+.statusForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.select, .input {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 12px;
+  color: white;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.select:focus, .input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.methodDetails {
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Стили для переключателя статуса */
+.statusToggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.statusToggle.active {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.3);
+  color: var(--color-success);
+}
+
+.statusToggle.inactive {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: var(--color-error);
+}
+
+.statusToggle:hover {
+  transform: translateY(-1px);
+}
+
+/* Стили для действий */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actionBtn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
+  color: white;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionBtn:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.actionBtn.delete:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+/* Стили для модальных окон */
+.modalForm {
+  padding: 0;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.label {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.currentStatus {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--color-bg-secondary);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.statusLabel {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.statusValue {
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
+.statusActive {
+  background: rgba(34, 197, 94, 0.1);
+  color: rgb(113, 207, 58);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.statusInactive {
+  background: rgba(239, 68, 68, 0.1);
+  color: rgb(202, 57, 57);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.statusChangeBtn {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.3s ease;
+  margin-left: auto;
+}
+
+.statusChangeBtn:hover {
+  background: var(--color-bg-secondary);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.modalActions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Стили для пустого состояния */
+.emptyState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.emptyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 400px;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.emptyTitle {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.emptyText {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Добавляем в конец файла */
+
+/* МОБИЛЬНАЯ АДАПТАЦИЯ - КАРТОЧКИ */
+.mobileMethods {
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobileMethodCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobileMethodHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.mobileMethodInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.mobileMethodIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.mobileMethodDetails {
+  flex: 1;
+}
+
+.mobileMethodName {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 4px 0;
+}
+
+.mobileMethodType {
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.mobileMethodContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobileInfoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobileInfoRow:last-child {
+  border-bottom: none;
+}
+
+.mobileInfoLabel {
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.mobileInfoValue {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: right;
+}
+
+.mobileMethodDescription {
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  line-height: 1.4;
+  margin: 8px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.mobileActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.mobileActions button {
+  flex: 1;
+  min-width: 120px;
+  font-size: 0.8rem;
+  padding: 8px 12px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .paymentMethodsManagement {
+    padding: 16px;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .controls {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .search {
+    max-width: none;
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .tableContainer {
+    display: none;
+  }
+  
+  .mobileMethods {
+    display: flex;
+  }
+  
+  .mobileMethodCard {
+    margin: 0 -8px;
+    width: calc(100% + 16px);
+  }
+}
+
+@media (max-width: 480px) {
+  .mobileMethodHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .mobileMethodInfo {
+    width: 100%;
+  }
+  
+  .mobileActions {
+    flex-direction: column;
+  }
+  
+  .mobileActions button {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  .mobileInfoRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .mobileInfoValue {
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .paymentMethodsManagement {
+    padding: 16px;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .controls {
+    flex-direction: column;
+  }
+  
+  .search {
+    max-width: none;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+  
+  .methodInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .currentStatus {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .statusChangeBtn {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .modalActions {
+    flex-direction: column;
+  }
+}

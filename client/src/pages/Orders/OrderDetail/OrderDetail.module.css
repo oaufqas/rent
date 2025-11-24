@@ -1,0 +1,290 @@
+.orderDetail {
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.loading, .notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+}
+
+.notFound h2 {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.notFound p {
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.breadcrumbs a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-accent-red);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.titleSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.date {
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.timelineSection {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+}
+
+.sectionTitle {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.infoCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.infoCard h3 {
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+}
+
+.accountInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.accountInfo img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.accountName {
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.accountNumber {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail {
+  color:white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.detail:last-child {
+  border-bottom: none;
+}
+
+.totalPrice {
+  color: var(--color-accent-red);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.contact, .notes {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact strong {
+  color: var(--color-accent-red);
+}
+
+.notes p {
+  color: var(--color-text-secondary);
+  margin: 0;
+  font-style: italic;
+}
+
+.payment {
+  color: var(--color-text-secondary);
+}
+
+.actionsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Добавь в OrderDetail.module.css */
+
+/* Стили для статуса отзыва */
+.reviewStatus {
+  padding: 12px 0;
+}
+
+.reviewExists,
+.canReview,
+.cannotReview {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.reviewStatusText {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.reviewExists .reviewStatusText {
+  color: #22c55e;
+}
+
+.canReview .reviewStatusText {
+  color: var(--color-accent-red);
+}
+
+.cannotReview .reviewStatusText {
+  color: var(--color-text-secondary);
+}
+
+/* Улучшенные стили для кнопок действий */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.actions button {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Адаптивность для OrderDetail */
+@media (max-width: 768px) {
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .actions {
+    gap: 8px;
+  }
+  
+  .reviewExists,
+  .canReview,
+  .cannotReview {
+    align-items: stretch;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  
+  .titleSection {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

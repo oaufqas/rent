@@ -115,7 +115,6 @@ class AuthController {
     async getMyInfo(req, res, next) {
         try {
             const id = req.user.id
-
             const userData = await userService.getMyInfo(id)
             
             return res.json(userData)

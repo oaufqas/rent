@@ -4,6 +4,8 @@ import balanceService from "../services/balance-service.js"
 import orderService from "../services/order-service.js"
 import paymentService from "../services/payment-service.js"
 import reviewService from "../services/review-service.js"
+import statsService from "../services/stats-service.js"
+import uploadService from "../services/upload-service.js"
 import userService from "../services/user-service.js"
 import { validationResult } from "express-validator"
 
@@ -20,10 +22,10 @@ class AdminController {
                 return next(ApiError.BadRequest('Create acc error', errors.array()))
             }
 
-            const {account_number, title, description, characters, price} = req.body
+            const {account_number, title, description, characters, price, status} = req.body
             const {img, video} = req.files
             
-            const accData = await accountService.createAccount(account_number, title, description, characters, price, img, video)
+            const accData = await accountService.createAccount(account_number, title, description, characters, price, img, video, status)
             
             return res.json(accData)
             
@@ -36,11 +38,11 @@ class AdminController {
     
     async changeAcc(req, res, next) {
         try {
-            const {account_number, title, description, characters, price} = req.body || {}
+            const {account_number, title, description, characters, price, status} = req.body || {}
             const {img, video} = req.files || {}
             const {id} = req.params
             
-            const changeData = await accountService.changeAccount(id, account_number, title, description, characters, price, img, video)
+            const changeData = await accountService.changeAccount(id, account_number, title, description, characters, price, img, video, status)
 
             return res.json(changeData)
         } catch (e) {
@@ -88,6 +90,18 @@ class AdminController {
             const {status, userId, accountId} = req.query
 
             const sortedData = await orderService.getAllOrders(status, userId, accountId)
+
+            return res.json(sortedData)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+
+
+    async getPendingOrders(req, res, next) {
+        try {
+            const sortedData = await orderService.getPendingOrders()
 
             return res.json(sortedData)
         } catch (e) {
@@ -221,9 +235,9 @@ class AdminController {
 
     async createPayMethod(req, res, next) {
         try {
-            const {name, details} = req.body
+            const {name, details, type} = req.body
 
-            const paymentData = await paymentService.addPaymentMethods(name, details)
+            const paymentData = await paymentService.addPaymentMethods(name, details, type)
 
             return res.json(paymentData)
         } catch (e) {
@@ -236,9 +250,9 @@ class AdminController {
     async changePayMethod(req, res, next) {
         try {
             const id = req.params.id
-            const {name, details, isActive} = req.body
+            const {name, details, isActive, type} = req.body
         
-            const paymentData = await paymentService.changePaymentMethods(id, name, details, isActive)
+            const paymentData = await paymentService.changePaymentMethods(id, name, details, isActive, type)
         
             return res.json(paymentData)
         } catch (e) {
@@ -267,6 +281,18 @@ class AdminController {
     async getAllDepRequests(req, res, next) {
         try {
             const requestsData = await balanceService.getAllDepositRequests()
+
+            return res.json(requestsData)
+        } catch (e) {
+            next(e)
+        }
+    }
+    
+
+
+    async getPendingDepRequests(req, res, next) {
+        try {
+            const requestsData = await balanceService.getPendingDepositRequests()
 
             return res.json(requestsData)
         } catch (e) {
@@ -321,6 +347,37 @@ class AdminController {
             const userData = await userService.changeStatus(id)
 
             return res.json(userData)
+        } catch (e) {
+            next(e)
+        }
+    }
+    
+    
+    
+                        //Upload-checks
+
+
+    async uploadCheck(req, res, next) {
+        try {
+            const { filename } = req.params;
+            const checkData = await uploadService.getCheck(filename)
+
+            res.download(checkData.filePath, checkData.filename);
+        } catch (e) {
+            next(e)
+        }
+    }
+    
+    
+    
+                        //Admin stats
+
+
+
+    async stats(req, res, next) {
+        try {
+            const statsData = await statsService.getDashboardStats()
+            return res.json(statsData)
         } catch (e) {
             next(e)
         }

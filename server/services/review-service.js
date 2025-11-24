@@ -13,7 +13,7 @@ class ReviewService {
                 throw ApiError.BadRequest('You cannot leave a review for an order that is not yours')
             }
             
-            if (order.canReview && !order.hasReview) {
+            if (!order.canReview && order.hasReview) {
                 throw ApiError.BadRequest('The order already has a review')
             }
 
@@ -33,7 +33,14 @@ class ReviewService {
                 accountId: order.accountId
             })
 
-            await emailService.sendNewReviewMail(process.env.ADMIN_EMAIL, createReview)
+            await order.update({canReview: false, hasReview: true})
+
+            try {
+                emailService.sendNewReviewMail(process.env.ADMIN_EMAIL, createReview)
+            } catch (e) {
+                throw e
+            }
+            
             return createReview
         } catch (e) {
             throw ApiError.ElseError(e)
@@ -43,7 +50,7 @@ class ReviewService {
 
     async getReviews() {
         try{
-            const reviewsData = await db.Review.findAll({where: {status: 'approved'}})
+            const reviewsData = await db.Review.findAll({where: {status: 'approved'}, include:[{model: db.User}, {model: db.Account}]})
     
             return reviewsData
         } catch (e) {
@@ -72,7 +79,7 @@ class ReviewService {
 
     async getAllReviews() {
         try{
-            const reviewsData = await db.Review.findAll({where: {status: 'pending'}})
+            const reviewsData = await db.Review.findAll({include: [{model: db.User}]})
     
             return reviewsData
         } catch (e) {

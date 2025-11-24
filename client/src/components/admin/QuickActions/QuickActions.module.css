@@ -1,0 +1,119 @@
+.quickActions {
+  width: 100%;
+}
+
+.title {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.action {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.action:hover {
+  border-color: var(--color-accent-red);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.action.primary:hover {
+  border-color: var(--color-accent-red);
+}
+
+.action.success:hover {
+  border-color: rgb(34, 197, 94);
+}
+
+.action.warning:hover {
+  border-color: rgb(234, 179, 8);
+}
+
+.action.info:hover {
+  border-color: rgb(59, 130, 246);
+}
+
+.action.secondary:hover {
+  border-color: rgb(156, 163, 175);
+}
+
+.action.error:hover {
+  border-color: rgb(239, 68, 68);
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.action.primary .icon {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--color-accent-red);
+}
+
+.action.success .icon {
+  background: rgba(34, 197, 94, 0.1);
+  color: rgb(34, 197, 94);
+}
+
+.action.warning .icon {
+  background: rgba(234, 179, 8, 0.1);
+  color: rgb(234, 179, 8);
+}
+
+.action.info .icon {
+  background: rgba(59, 130, 246, 0.1);
+  color: rgb(59, 130, 246);
+}
+
+.action.secondary .icon {
+  background: rgba(156, 163, 175, 0.1);
+  color: rgb(156, 163, 175);
+}
+
+.action.error .icon {
+  background: rgba(239, 68, 68, 0.1);
+  color: rgb(239, 68, 68);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.description {
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}

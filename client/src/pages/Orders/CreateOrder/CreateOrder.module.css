@@ -1,0 +1,397 @@
+.createOrder {
+  min-height: 100vh;
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.header {
+  margin-bottom: 40px;
+}
+
+.title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.orderInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.accountCard {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+}
+
+.accountCard img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.accountDetails {
+  padding: 16px;
+  flex: 1;
+}
+
+.accountHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.accountHeader h3 {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  flex: 1;
+}
+
+.accountNumber {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  margin: 0 0 8px 0;
+}
+
+.orderDetails {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.orderDetails h4 {
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+}
+
+.detailsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.totalPrice {
+  color: var(--color-accent-red);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.orderForm {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formTitle {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.error {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid var(--color-accent-red);
+  color: var(--color-accent-red);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.paymentSection h4 {
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.paymentMethods {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.paymentMethod {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.paymentMethod:hover {
+  border-color: var(--color-accent-red);
+}
+
+.paymentMethod input {
+  margin: 0;
+}
+
+.paymentMethod span {
+  color: white;
+  font-weight: 500;
+}
+
+.balanceInfo {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  overflow: hidden;
+}
+
+.balanceHeader, .balanceComparison {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  color: var(--color-text-secondary);
+}
+
+.balanceAmount {
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.orderAmount {
+  color: var(--color-accent-red);
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.balanceWarning {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid var(--color-accent-red);
+  color: var(--color-accent-red);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.balanceSuccess {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid #22c55e;
+  color: #22c55e;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.paymentDetails {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 16px 0;
+  overflow: hidden;
+}
+
+.paymentDetails h5 {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.payMethods {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.payMethod {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.payMethod:hover,
+.payMethod.selected {
+  border-color: var(--color-accent-red);
+  background: rgba(220, 38, 38, 0.05);
+}
+
+.payMethod.selected .payMethodName {
+  color: var(--color-accent-red);
+  font-weight: 600;
+}
+
+.payMethod input[type="radio"] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  margin: 2px 0 0 0;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.payMethod input[type="radio"]:hover {
+  border-color: var(--color-accent-red);
+}
+
+.payMethod input[type="radio"]:checked {
+  border-color: var(--color-accent-red);
+  background: var(--color-accent-red);
+}
+
+.payMethod input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+}
+
+.payMethodInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.payMethodName {
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.payMethodDetails {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+.checkUpload {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.uploadHint {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  margin: 8px 0 0 0;
+}
+
+.submitButton {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submitButton:disabled:hover {
+  background: var(--color-accent-red);
+  transform: none;
+}
+
+.payMethod input[type="radio"] {
+  appearance: none;                /* ← УБИРАЕМ СТАНДАРТНЫЕ СТИЛИ */
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  /* ... кастомные стили */
+}
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.breadcrumbs a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumbs a:hover {
+  color: var(--color-accent-red);
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .accountCard {
+    flex-direction: column;
+  }
+  
+  .accountCard img {
+    width: 100%;
+    height: 200px;
+  }
+}

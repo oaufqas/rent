@@ -1,0 +1,140 @@
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--color-accent-red);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.accountInfo {
+  flex: 1;
+}
+
+.accountTitle {
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.rating {
+  display: flex;
+  gap: 4px;
+}
+
+.filledStar {
+  color: #fbbf24; /* yellow-400 */
+}
+
+.emptyStar {
+  color: var(--color-text-secondary);
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.status.success {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+  border: 1px solid #22c55e;
+}
+
+.status.warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+  border: 1px solid #f59e0b;
+}
+
+.status.error {
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--color-accent-red);
+  border: 1px solid var(--color-accent-red);
+}
+
+.comment {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: var(--color-bg-secondary);
+  border-radius: 8px;
+}
+
+.commentIcon {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.commentText {
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.date {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+}
+
+.orderRef {
+  color: var(--color-accent-red);
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(220, 38, 38, 0.1);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .status {
+    align-self: flex-start;
+  }
+  
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .comment {
+    flex-direction: column;
+    gap: 8px;
+  }
+}

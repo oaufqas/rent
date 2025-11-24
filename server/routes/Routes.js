@@ -5,7 +5,6 @@ import accountRouter from './AccountRouter.js'
 import orderRouter from './OrderRouter.js'
 import reviewRouter from './ReviewRouter.js'
 import balanceRouter from './BalanceRouter.js'
-import checkRole from '../middleware/checkRole-middleware.js' // Потом включить!!!
 
 const router = new Router()
 

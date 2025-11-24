@@ -20,7 +20,11 @@ class UserService {
         const activationLink = randomUUID()
 
         const user = await db.User.create({email, password: hashPassword, activationLink})
-        await mailService.sendActivationMail(email, `${process.env.API_URL}/api/auth/activate/${activationLink}`)
+        try {
+            mailService.sendActivationMail(email, `${process.env.API_URL}/api/auth/activate/${activationLink}`)
+        } catch (e) {
+            throw e
+        }
 
         let userDto = new UserDto(user) // id, email, isActivated
         const tokens = tokenService.generateTokens({...userDto})
@@ -70,7 +74,11 @@ class UserService {
             where: {id: user.id}
         })
         
-        mailService.sendActivationCode(user.email, code)
+        try {
+            mailService.sendActivationCode(user.email, code)
+        } catch (e) {
+            throw e
+        }
 
         return {userId: user.id, message: 'the code has been sent to your email'}
     }
@@ -183,7 +191,12 @@ class UserService {
                 where: {id: user.id}
             })
             
-            mailService.sendCodeToChangePassword(user.email, code)
+            try {
+                mailService.sendCodeToChangePassword(user.email, code)
+            } catch (e) {
+                throw e
+            }
+
 
             return {userId: user.id, message: 'the code has been sent to your email'}
         } catch (e) {

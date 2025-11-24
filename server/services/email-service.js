@@ -39,7 +39,7 @@ class EmailService {
                         <p>Для завершения регистрации перейдите по ссылке:</p>
                         <div style="text-align: center; margin: 30px 0;">
                             <div style="font-size: 32px; font-weight: bold; letter-spacing: 8px; color: #dc2626; background: #f8fafc; padding: 20px; border-radius: 8px;">
-                                <a href="${link}">${link}</a>
+                                <a href="${link}">Нажмите для перехода по ссылке</a>
                             </div>
                         </div>
                         <p style="color: #666; font-size: 14px;">

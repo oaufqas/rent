@@ -1,68 +1,68 @@
-POST  /api/auth/register        // Регистрация  //✅
-POST  /api/auth/login           // Вход  //✅
-POST  /api/auth/vefify          // Подтверждение входа кодом  //✅
-POST  /api/auth/login           // Выход  //✅
-GET  /api/auth/activate/:link   // Ссылка-авторизация  //✅
-GET  /api/auth/refresh          // Перезаписывать аксесс токен, в случае если он умер  //✅
-GET  /api/auth/me               // Получить текущего пользователя  //✅
-PUT  /api/auth/profile          // Обновить профиль + аватар  //✅
-PUT  /api/auth/change-password  // Поменять пароль  //✅
-PUT  /api/auth/verify-password   // Подтвердить смену пароля кодом  //✅
+POST  /api/auth/register        // Регистрация  //✅ {email, password} = req.body
+POST  /api/auth/login           // Вход  //✅ {email, password} = req.body
+POST  /api/auth/vefify          // Подтверждение входа кодом  //✅ {userId, code} = req.body
+POST  /api/auth/logout           // Выход  //✅ {refreshToken} = req.cookies
+GET  /api/auth/activate/:link   // Ссылка-авторизация  //✅ activationLink = req.params.link
+GET  /api/auth/refresh          // Перезаписывать аксесс токен, в случае если он умер  //✅ {refreshToken} = req.cookies
+GET  /api/auth/me               // Получить текущего пользователя  //✅ (auth) id = req.user.id
+PUT  /api/auth/profile          // Обновить профиль + аватар  //✅ (auth) id = req.user.id, {username} = req.body
+PUT  /api/auth/change-password  // Поменять пароль  //✅ {email} = req.body
+PUT  /api/auth/verify-password   // Подтвердить смену пароля кодом  //✅ {userId, password, code} = req.body
 
 
-GET  /api/accounts              // Получить все аккаунты (с пагинацией и фильтрами)  //✅
-GET  /api/accounts/:id          // Получить конкретный аккаунт  //✅
+GET  /api/accounts              // Получить все аккаунты (с пагинацией и фильтрами)  //✅ {bape, crewUniform, more300mif} = req.query
+GET  /api/accounts/:id          // Получить конкретный аккаунт  //✅ {id} = req.params
 
 
-GET  /api/orders/my             // Мои заказы  //✅
-POST  /api/orders               // Создать заказ  //✅
-PUT  /api/orders/:id/cancel     // Отменить заказ  //✅
+GET  /api/orders/my             // Мои заказы  //✅ (auth) usId = req.user.id
+POST  /api/orders               // Создать заказ  //✅ (auth) usId = req.user.id, {amount, rentPeriod, accountId, verificationPlatform, userNameInPlatform, paymentMethod} = req.body, {check} = req.files || {}
+PUT  /api/orders/:id/cancel     // Отменить заказ  //✅ (auth) usId = req.user.id, id = req.params.id
 
-POST  /api/reviews              // Оставить отзыв  //✅
-GET  /api/reviews               // Получить одобренные отзывы  //✅
-GET  /api/reviews/my            // Мои отзывы  //✅
+POST  /api/reviews              // Оставить отзыв  //✅ (auth) id = req.user.id, {ratingValue, comment, orderId} = req.body
+GET  /api/reviews               // Получить одобренные отзывы  //✅ 
+GET  /api/reviews/my            // Мои отзывы  //✅ (auth) id = req.user.id
 
 
-GET  /api/balance                               // Получить баланс пользователя  //✅
-GET  /api/balance/history                       // История пополнений и списаний  //✅
-POST /api/balance/deposit-request               // Создать заявку на пополнение баланса  //✅
-PUT  /api/balance/deposit-request/:id/cancel    // Отменить заявку на пополнение баланса  //✅
+GET  /api/balance                               // Получить баланс пользователя  //✅ (auth) id = req.user.id
+GET  /api/balance/history                       // История пополнений и списаний  //✅ (auth) id = req.user.id
+POST /api/balance/deposit-request               // Создать заявку на пополнение баланса  //✅ (auth) id = req.user.id, {amount, method} = req.body, {check} = req.files
+PUT  /api/balance/deposit-request/:id/cancel    // Отменить заявку на пополнение баланса  //✅ usId = req.user.id, id = req.params.id
 
 GET  /api/balance/payment-methods               // Получить реквизиты для оплаты  //✅
 
 
 // Управление заказами
-GET  /api/admin/orders                  // Все заказы с фильтрами  //✅
-PUT  /api/admin/orders/:id/approve      // Принять оплату  //✅
-PUT  /api/admin/orders/:id/reject       // Отклонить заказ  //✅
-PUT  /api/admin/orders/:id/verifyuser   // Проверить пользователя  //✅
-PUT  /api/admin/orders/:id/complete     // Выдать аккаунт  //✅
-PUT  /api/admin/orders/:id/extend       // Продлить аренду (ручное)  //✅
+GET  /api/admin/orders                  // Все заказы с фильтрами  //✅ {status, userId, accountId} = req.query
+PUT  /api/admin/orders/:id/approve      // Принять оплату  //✅ id = req.params.id
+PUT  /api/admin/orders/:id/reject       // Отклонить заказ  //✅ id = req.params.id
+PUT  /api/admin/orders/:id/verifyuser   // Проверить пользователя  //✅ id = req.params.id
+PUT  /api/admin/orders/:id/complete     // Выдать аккаунт  //✅ id = req.params.id
+PUT  /api/admin/orders/:id/extend       // Продлить аренду (ручное)  //✅ id = req.params.id, {extraHours} = req.body
 
 
 // Модерация отзывов
-GET  /api/admin/reviews                 // Все отзывы для модерации  //✅
-PUT  /api/admin/reviews/:id/approve     // Одобрить отзыв  //✅
-PUT  /api/admin/reviews/:id/reject      // Отклонить отзыв  //✅
+GET  /api/admin/reviews                 // Все отзывы для модерации  //✅ 
+PUT  /api/admin/reviews/:id/approve     // Одобрить отзыв  //✅ id = req.params.id
+PUT  /api/admin/reviews/:id/reject      // Отклонить отзыв  //✅ id = req.params.id
 
 
 // Управление реквизитами
 GET  /api/admin/payment-methods        // Получить все реквизиты  //✅
-POST  /api/admin/payment-methods        // Добавить реквизиты  //✅
-PUT  /api/admin/payment-methods/:id     // Обновить реквизиты  //✅
-DELETE  /api/admin/payment-methods/:id  // Удалить реквизиты  //✅
+POST  /api/admin/payment-methods        // Добавить реквизиты  //✅ {name, details} = req.body
+PUT  /api/admin/payment-methods/:id     // Обновить реквизиты  //✅ id = req.params.id, {name, details, isActive} = req.body
+DELETE  /api/admin/payment-methods/:id  // Удалить реквизиты  //✅ id = req.params.id
 
 
-GET  /api/admin/deposit-requests                // Все заявки на пополнение баланса  //✅
-PUT  /api/admin/deposit-requests/:id/approve    // Подтвердить пополнение баланса  //✅
-PUT  /api/admin/deposit-requests/:id/reject     // Отклонить пополнение баланса  //✅
+GET  /api/admin/deposit-requests                // Все заявки на пополнение баланса  //✅ 
+PUT  /api/admin/deposit-requests/:id/approve    // Подтвердить пополнение баланса  //✅ id = req.params.id
+PUT  /api/admin/deposit-requests/:id/reject     // Отклонить пополнение баланса  //✅ id = req.params.id
 
 
-POST  /api/admin/accounts               // Создать новый аккаунт  //✅
-PUT  /api/admin/accounts/:id            // Обновить аккаунт  //✅
-DELETE  /api/admin/accounts/:id         // Удалить аккаунт  //✅
-PUT  /api/admin/accounts/:id/status     // Изменить статус аккаунта  //✅
+POST  /api/admin/accounts               // Создать новый аккаунт  //✅ {account_number, title, description, characters, price} = req.body, {img, video} = req.files
+PUT  /api/admin/accounts/:id            // Обновить аккаунт  //✅ {account_number, title, description, characters, price} = req.body || {}, {img, video} = req.files || {}, {id} = req.params
+DELETE  /api/admin/accounts/:id         // Удалить аккаунт  //✅ {id} = req.params
+PUT  /api/admin/accounts/:id/status     // Изменить статус аккаунта  //✅ {status, rentHours} = req.body, {id} = req.params
 
 
 GET  /api/admin/users               // Получить всех пользователей  //✅
-PUT  /api/admin/users/:id/status    // Заблокировать/разблокировать пользователя  //✅
+PUT  /api/admin/users/:id/status    // Заблокировать/разблокировать пользователя  //✅ id = req.params.id

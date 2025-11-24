@@ -18,17 +18,17 @@ class AccountService {
 
             if (filters.bape) {
                 whereConditions.push(
-                    literal(`characters LIKE '%"bape": true%'`)
+                    literal(`characters LIKE '%"bape":true%'`)
                 );
             }
             if (filters.crewUniform) {
                 whereConditions.push(
-                    literal(`characters LIKE '%"crewUniform": true%'`)
+                    literal(`characters LIKE '%"crewUniform":true%'`)
                 );
             }
             if (filters.more300mif) {
                 whereConditions.push(
-                    literal(`characters LIKE '%"more300mif": true%'`)
+                    literal(`characters LIKE '%"more300mif":true%'`)
                 );
             }
 
@@ -61,7 +61,7 @@ class AccountService {
     }
 
 
-    async createAccount(account_number, title, description, characters, price, img, video) {
+    async createAccount(account_number, title, description, characters, price, img, video, status) {
         let pathToImg
         let pathToVideo
 
@@ -69,7 +69,7 @@ class AccountService {
             pathToImg = await uploadService.uploadImg(img)
             pathToVideo = await uploadService.uploadVideo(video)
     
-            const accData = await db.Account.create({account_number, title, description, characters, price, img: pathToImg, video: pathToVideo})
+            const accData = await db.Account.create({account_number, title, description, characters, price, status, img: pathToImg, video: pathToVideo})
             return accData
 
         } catch (e) {
@@ -81,7 +81,7 @@ class AccountService {
     }
 
 
-    async changeAccount (id, account_number, title, description, characters, price, img, video) {
+    async changeAccount (id, account_number, title, description, characters, price, img, video, status) {
         try {
             
             const findAcc = await db.Account.findByPk(id) 
@@ -109,6 +109,7 @@ class AccountService {
             if (description !== undefined) updateData.description = description;
             if (characters !== undefined) updateData.characters = characters;
             if (price !== undefined) updateData.price = price;
+            if (status !== undefined) updateData.status = status;
 
             if (Object.keys(updateData).length > 0) {
 
@@ -143,7 +144,7 @@ class AccountService {
     
     
     async changeStatusAccount(id, status, rentHours) {
-        let checkH = rentHours
+        let checkH = parseInt(rentHours)
         try {
             
             const findAcc = await db.Account.findByPk(id) 

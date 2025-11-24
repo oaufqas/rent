@@ -18,14 +18,14 @@ const User = sequelize.define('user', {
 
 
 const UserToken = sequelize.define('userToken', {
-    userId: {type: DataTypes.INTEGER, references: {model: 'users', key: 'id'}},
+    userId: {type: DataTypes.INTEGER, references: {model: 'users', key: 'id'}, allowNull: true},
     refreshToken: {type: DataTypes.STRING(512), allowNull: false}
 })
 
 
 const Transaction = sequelize.define('transaction', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    userId: {type: DataTypes.INTEGER, references: {model: 'users', key: 'id'}},
+    userId: {type: DataTypes.INTEGER, references: {model: 'users', key: 'id'}, allowNull: true},
     type: {type: DataTypes.ENUM('deposit', 'payment'), allowNull: false},
     amount: {type: DataTypes.DECIMAL(10, 2), allowNull: false},
     status: {type: DataTypes.ENUM('pending', 'completed', 'cancelled'), defaultValue: 'pending'},
@@ -44,7 +44,7 @@ const Account = sequelize.define('account', {
     title: {type: DataTypes.STRING, allowNull: false},
     description: {type: DataTypes.TEXT, allowNull: false},
     characters: {type: DataTypes.STRING, defaultValue: '{"bape":false,"crewUniform":false,"more300mif":false}', allowNull: false},
-    price: {type: DataTypes.STRING, defaultValue: '{"3":400,"6":700,"12":1200,"24":2100,"else":180,"night":1000}', allowNull: false},
+    price: {type: DataTypes.INTEGER, defaultValue: 200, allowNull: false},
     status: {type: DataTypes.ENUM('rented', 'free', 'unavailable'), defaultValue: 'unavailable', allowNull: false},
     rentExpiresAt: {type: DataTypes.DATE, allowNull: true},
     img: {type: DataTypes.STRING, allowNull: false},
@@ -60,15 +60,15 @@ const Order = sequelize.define('order', {
     startsAt: {type: DataTypes.DATE, allowNull: true},
     expiresAt: {type: DataTypes.DATE, allowNull: true},
     check: {type: DataTypes.STRING, allowNull: true},
-    userId: {type: DataTypes.INTEGER, references: {model: 'users', key: 'id'}},
-    accountId: {type: DataTypes.INTEGER, references: {model: 'accounts', key: 'id'}},
+    userId: {type: DataTypes.INTEGER, references: {model: 'users', key: 'id'}, allowNull: true},
+    accountId: {type: DataTypes.INTEGER, references: {model: 'accounts', key: 'id'}, allowNull: true},
     verificationPlatform: {type: DataTypes.STRING, allowNull: false},
     userNameInPlatform: {type: DataTypes.STRING, allowNull: false}, 
     canReview: {type: DataTypes.BOOLEAN, defaultValue: false}, 
     hasReview: {type: DataTypes.BOOLEAN, defaultValue: false},
     canSendMail: {type: DataTypes.BOOLEAN, defaultValue: true},
     paymentMethod: {type: DataTypes.ENUM('balance', 'bank_transfer', 'crypto'), allowNull: false},
-    transactionId: {type: DataTypes.INTEGER, references :{model: 'transactions', key: 'id'}}
+    transactionId: {type: DataTypes.INTEGER, references :{model: 'transactions', key: 'id'}, allowNull: true}
 })
 
 
@@ -78,9 +78,8 @@ const Review = sequelize.define('review', {
     comment: {type: DataTypes.TEXT, allowNull: true},
     status: {type: DataTypes.ENUM('pending', 'approved', 'rejected'), defaultValue: 'pending'},
     orderId: {type: DataTypes.INTEGER, references: {model: 'orders', key: 'id'}, allowNull: false, unique: true},
-    accountId: {type: DataTypes.INTEGER, references: {model: 'accounts', key: 'id'}},
-    userId: {type: DataTypes.INTEGER, references: {model: 'users', key: 'id'}},
-
+    accountId: {type: DataTypes.INTEGER, references: {model: 'accounts', key: 'id'}, allowNull: true},
+    userId: {type: DataTypes.INTEGER, references: {model: 'users', key: 'id'}, allowNull: true},
 })
 
 
@@ -88,14 +87,24 @@ const PaymentMethod = sequelize.define('paymentMethod', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     details: {type: DataTypes.STRING, allowNull: false},
+    type: {type: DataTypes.ENUM('bank_transfer', 'crypto'), allowNull: false},
     isActive: {type: DataTypes.BOOLEAN, defaultValue: true}
 })
+
+
+// const Statistics = sequelize.define('statistics', {
+//     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+//     name: {type: DataTypes.STRING, unique: true, allowNull: false},
+//     details: {type: DataTypes.STRING, allowNull: false},
+//     type: {type: DataTypes.ENUM('bank_transfer', 'crypto'), allowNull: false},
+//     isActive: {type: DataTypes.BOOLEAN, defaultValue: true}
+// })
 
 
 User.hasMany(Order, {foreignKey: 'userId'})
 Order.belongsTo(User, {foreignKey: 'userId'})
 
-User.hasMany(UserToken, {foreignKey: 'userId'})
+User.hasMany(UserToken, {foreignKey: 'userId', onDelete: 'CASCADE'})
 UserToken.belongsTo(User, {foreignKey: 'userId'})
 
 User.hasMany(Transaction, {foreignKey: 'userId'})
