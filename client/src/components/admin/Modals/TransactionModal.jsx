@@ -11,7 +11,6 @@ const TransactionModal = ({
   onApprove, 
   onReject,
   onDownloadCheck,
-  onViewCheck,
   loading = false 
 }) => {
   if (!transaction) return null
@@ -126,7 +125,7 @@ const TransactionModal = ({
                     <Button
                       variant="primary"
                       size="small"
-                      onClick={() => onViewCheck(transaction.check)}
+                      onClick={() => onDownloadCheck(transaction.check)}
                     >
                       <Eye size={16} />
                       Скачать чек

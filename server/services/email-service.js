@@ -3,13 +3,44 @@ import * as nodemailer from 'nodemailer'
 class EmailService {
 
     constructor() {
-        this.transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_PASS
-            }
-        })
+        try {
+        // this.transporter = nodemailer.createTransport({
+        //     service: 'gmail',
+        //     auth: {
+        //         user: process.env.GMAIL_USER,
+        //         pass: process.env.GMAIL_PASS
+        //     }
+        // })
+            this.transporter = nodemailer.createTransport({
+                host: 'smtp.timeweb.ru',
+                port: 465,
+                secure: true,
+                auth: {
+                    user: process.env.GMAIL_USER,
+                    pass: process.env.GMAIL_PASS
+                },
+
+                tls: {
+                    rejectUnauthorized: false
+                },
+                connectionTimeout: 10000,
+                greetingTimeout: 10000,
+                socketTimeout: 30000
+            })
+
+            this.verifyConnection()
+        } catch (e) {
+                console.error(e)
+        }
+    }
+
+    async verifyConnection() {
+        try {
+            await this.transporter.verify();
+            console.log('SMTP connection verified successfully');
+        } catch (error) {
+            console.error('SMTP connection failed:', error);
+        }
     }
 
     async sendMultipleEmails(emails) {
@@ -29,7 +60,10 @@ class EmailService {
 
     async sendActivationMail(to, link) {
         await this.transporter.sendMail({
-            from: process.env.GMAIL_USER,
+            from: {
+                name: 'kycaka rent',           // Имя отправителя
+                address: process.env.GMAIL_USER     // Email отправителя
+            },
             to,
             subject: 'Ссылка для активации аккаунта',
             html: 
@@ -54,7 +88,10 @@ class EmailService {
 
     async sendActivationCode(to, code) {
         await this.transporter.sendMail({
-            from: process.env.GMAIL_USER,
+            from: {
+                name: 'kycaka rent',           // Имя отправителя
+                address: process.env.GMAIL_USER    // Email отправителя
+            },
             to,
             subject: 'Код подтверждения входа',
             html: 
@@ -79,7 +116,10 @@ class EmailService {
 
     async sendCodeToChangePassword(to, code) {
         await this.transporter.sendMail({
-            from: process.env.GMAIL_USER,
+            from: {
+                name: 'kycaka rent',           // Имя отправителя
+                address: process.env.GMAIL_USER     // Email отправителя
+            },
             to,
             subject: 'Код для смены пароля',
             html: 
@@ -104,7 +144,10 @@ class EmailService {
 
     async sendBalanceReplenishedMail(to, transaction) {
         await this.transporter.sendMail({
-            from: process.env.GMAIL_USER,
+            from: {
+                name: 'kycaka rent',           // Имя отправителя
+                address: process.env.GMAIL_USER    // Email отправителя
+            },
             to,
             subject: `Пополнение баланса на ${transaction.amount}`,
             html:
@@ -128,7 +171,10 @@ class EmailService {
 
     async sendRentSuccessMail(to, order) {
         await this.transporter.sendMail({
-            from: process.env.GMAIL_USER,
+            from: {
+                name: 'kycaka rent',           // Имя отправителя
+                address: process.env.GMAIL_USER     // Email отправителя
+            },
             to,
             subject: 'Аренда активна!',
             html: 
@@ -152,7 +198,10 @@ class EmailService {
 
     async sendWarningMail(to, order, minutesLeft = 5) {
         await this.transporter.sendMail({
-            from: process.env.GMAIL_USER,
+            from: {
+                name: 'kycaka rent',           // Имя отправителя
+                address: process.env.GMAIL_USER     // Email отправителя
+            },
             to,
             subject: 'Скоро аренда закончится',
             html: 
@@ -173,13 +222,12 @@ class EmailService {
 
 
 
-
-
-
-
     async sendNewOrderMail(to, order) {
         await this.transporter.sendMail({
-            from: process.env.GMAIL_USER,
+            from: {
+                name: 'kycaka rent',           // Имя отправителя
+                address: process.env.GMAIL_USER     // Email отправителя
+            },
             to,
             subject: `Новый заказ #${order.id}`,
             html: 
@@ -199,7 +247,10 @@ class EmailService {
 
     async sendNewReviewMail(to, review) {
         await this.transporter.sendMail({
-            from: process.env.GMAIL_USER,
+            from: {
+                name: 'kycaka rent',           // Имя отправителя
+                address: process.env.GMAIL_USER     // Email отправителя
+            },
             to,
             subject: `Новый отзыв на модерацию`,
             html: 
@@ -218,7 +269,10 @@ class EmailService {
 
     async sendDepositMail(to, transaction) {
         await this.transporter.sendMail({
-            from: process.env.GMAIL_USER,
+            from: {
+                name: 'kycaka rent',
+                address: process.env.GMAIL_USER
+            },
             to,
             subject: `Новая заявка на пополнение #${transaction.id}`,
             html: 

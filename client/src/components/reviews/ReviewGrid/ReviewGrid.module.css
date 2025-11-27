@@ -9,6 +9,21 @@
   margin-bottom: 32px;
 }
 
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+}
+
 .loading {
   display: flex;
   justify-content: center;

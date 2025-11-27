@@ -1,0 +1,11 @@
+import{c as e,j as s,m}from"./index-C-KVzDfL.js";import{C as u,a as p}from"./circle-x-CsmGMM7e.js";import{C as h}from"./clock-ClSTzOvM.js";/**
+ * @license lucide-react v0.552.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const v=[["path",{d:"M17 7 7 17",key:"15tmo1"}],["path",{d:"M17 17H7V7",key:"1org7z"}]],f=e("arrow-down-left",v);/**
+ * @license lucide-react v0.552.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const g=[["path",{d:"M7 7h10v10",key:"1tivn9"}],["path",{d:"M7 17 17 7",key:"1vkiza"}]],x=e("arrow-up-right",g),j="_card_18v7d_1",N="_icon_18v7d_33",w="_content_18v7d_53",I="_mainInfo_18v7d_69",y="_title_18v7d_77",C="_description_18v7d_91",b="_date_18v7d_105",k="_amountInfo_18v7d_115",$="_amount_18v7d_115",z="_status_18v7d_139",D="_success_18v7d_161",M="_error_18v7d_169",T="_warning_18v7d_177",o={card:j,icon:N,content:w,mainInfo:I,title:y,description:C,date:b,amountInfo:k,amount:$,status:z,success:D,error:M,warning:T},S=({transaction:n})=>{const t=((c,d)=>{const l={deposit:{icon:f,color:"success",label:"Пополнение"},payment:{icon:x,color:"error",label:"Оплата заказа"}},_={pending:{icon:h,color:"warning",label:"Ожидание"},completed:{icon:p,color:"success",label:"Завершено"},cancelled:{icon:u,color:"error",label:"Отменен"}};return{...l[c],status:_[d]}})(n.type,n.status),a=t.icon,r=t.status.icon,i=c=>new Date(c).toLocaleDateString("ru-RU",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});return s.jsxs(m.div,{whileHover:{x:4},className:o.card,children:[s.jsx("div",{className:o.icon,children:s.jsx(a,{size:20,className:o[t.color]})}),s.jsxs("div",{className:o.content,children:[s.jsxs("div",{className:o.mainInfo,children:[s.jsx("h4",{className:o.title,children:t.label}),s.jsx("p",{className:o.description,children:n.description||"Описание транзакции"}),s.jsx("span",{className:o.date,children:i(n.createdAt)})]}),s.jsxs("div",{className:o.amountInfo,children:[s.jsxs("span",{className:`${o.amount} ${o[t.color]}`,children:[n.type==="deposit"?"+":"-",n.amount," ₽"]}),s.jsxs("div",{className:`${o.status} ${o[t.status.color]}`,children:[s.jsx(r,{size:14}),s.jsx("span",{children:t.status.label})]})]})]})]})};export{S as T};

@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react'
 import { adminStore } from '../../../stores/adminStore'
 import DashboardCard from '../../../components/admin/DashboardCard/DashboardCard'
 import Modal from '../../../components/ui/Modal/Modal'
-import TransactionModal from '../../../components/Admin/Modals/TransactionModal'
-import OrderModal from '../../../components/Admin/Modals/OrderModal'
+import TransactionModal from '../../../components/admin/Modals/TransactionModal'
+import OrderModal from '../../../components/admin/Modals/OrderModal'
 import Button from '../../../components/ui/Button/Button'
 import { formatCurrency } from '../../../utils/formatters'
 import { formatToMoscowTime } from '../../../utils/dateUtils'
@@ -373,7 +373,6 @@ const Dashboard = observer(() => {
         </motion.div>
       )}
 
-      {/* Быстрые действия */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -400,7 +399,7 @@ const Dashboard = observer(() => {
             <ShoppingCart size={24} />
             <span>Обработка заказов</span>
           </button>
-          <button className={styles.quickAction} onClick={() => window.location.href = '/admin/payment-methods'}>
+          <button className={styles.quickAction} onClick={() => window.location.href = '/admin/paymethods'}>
             <CreditCard size={24} />
             <span>Методы оплаты</span>
           </button>

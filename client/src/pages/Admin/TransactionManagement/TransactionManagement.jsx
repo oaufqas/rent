@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { adminStore } from '../../../stores/adminStore'
 import Button from '../../../components/ui/Button/Button'
 import Modal from '../../../components/ui/Modal/Modal'
-import TransactionModal from '../../../components/Admin/Modals/TransactionModal'
+import TransactionModal from '../../../components/admin/Modals/TransactionModal'
 import { formatCurrency } from '../../../utils/formatters'
 import { formatToMoscowTime } from '../../../utils/dateUtils'
 import styles from './TransactionManagement.module.css'
@@ -133,11 +133,6 @@ const TransactionManagement = observer(() => {
       console.error('Error downloading check:', error);
       alert('Ошибка при скачивании чека');
     }
-  };
-
-  const handleViewCheck = (checkFilename) => {
-    const checkUrl = `${import.meta.env.VITE_API_URL}/admin/checks/${checkFilename}`;
-    window.open(checkUrl, '_blank');
   };
 
   const handleExport = () => {
@@ -425,7 +420,6 @@ const TransactionManagement = observer(() => {
           onApprove={handleApprove}
           onReject={handleReject}
           onDownloadCheck={handleDownloadCheck}
-          onViewCheck={handleViewCheck}
           loading={modalLoading}
         />
       </Modal>

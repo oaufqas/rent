@@ -49,10 +49,8 @@ const AccountForm = observer(() => {
     }
   }, [isEdit, id, fetchAccount])
 
-
   useEffect(() => {
     if (isEdit && account) {
-
       let charactersObj = {};
       if (account.characters) {
         if (typeof account.characters === 'string') {
@@ -89,37 +87,86 @@ const AccountForm = observer(() => {
           : account.characters;
 
         const selected = Object.keys(charactersObj).filter(key => charactersObj[key] === true);
-        
         setSelectedFeatures(selected);
       }
     }
   }, [account, isEdit])
 
+  const validateImageFile = (file) => {
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    
+    if (file.size > maxSize) {
+      alert(`Размер изображения не должен превышать 10MB. Ваш файл: ${(file.size / (1024 * 1024)).toFixed(1)}MB`);
+      return false;
+    }
+    
+    if (!allowedTypes.includes(file.type)) {
+      alert('Разрешены только изображения: JPG, PNG, WEBP');
+      return false;
+    }
+    
+    return true;
+  }
+
+  const validateVideoFile = (file) => {
+    const maxSize = 200 * 1024 * 1024; // 200MB
+    const allowedTypes = [
+      'video/mp4', 
+      'video/avi', 
+      'video/mov', 
+      'video/wmv',
+      'video/webm',
+      'video/quicktime'
+    ];
+    
+    if (file.size > maxSize) {
+      alert(`Размер видео не должен превышать 200MB. Ваш файл: ${(file.size / (1024 * 1024)).toFixed(1)}MB`);
+      return false;
+    }
+    
+    if (!allowedTypes.includes(file.type)) {
+      alert('Разрешены только видео файлы: MP4, AVI, MOV, WMV, WEBM');
+      return false;
+    }
+    
+    return true;
+  }
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0]
-    if (file) {
-      setImageFile(file)
-      setExistingImage('')
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    if (!validateImageFile(file)) {
+      e.target.value = '';
+      return;
     }
+    
+    setImageFile(file);
+    setExistingImage('');
   }
 
   const handleVideoChange = (e) => {
-    const file = e.target.files[0]
-    if (file) {
-      setVideoFile(file)
-      setExistingVideo('')
+    const file = e.target.files[0];
+    if (!file) return;
+    
+    if (!validateVideoFile(file)) {
+      e.target.value = '';
+      return;
     }
+    
+    setVideoFile(file);
+    setExistingVideo('');
   }
 
   const removeImage = () => {
-    setImageFile(null)
-    setExistingImage('')
+    setImageFile(null);
+    setExistingImage('');
   }
 
   const removeVideo = () => {
-    setVideoFile(null)
-    setExistingVideo('')
+    setVideoFile(null);
+    setExistingVideo('');
   }
 
   const handleInputChange = (field, value) => {
@@ -183,37 +230,29 @@ const AccountForm = observer(() => {
       accountData.append('price', formData.price)
       accountData.append('status', formData.status)
 
-
       if (isEdit) {
-
         if (imageFile) {
           accountData.append('img', imageFile)
-        } 
-
-        else if (!existingImage && !imageFile) {
+        } else if (!existingImage && !imageFile) {
           accountData.append('removeImg', 'true')
-        }
-
-        else if (existingImage && !imageFile) {
+        } else if (existingImage && !imageFile) {
           accountData.append('existingImg', existingImage)
         }
 
         if (videoFile) {
           accountData.append('video', videoFile)
-        } 
-        else if (!existingVideo && !videoFile) {
+        } else if (!existingVideo && !videoFile) {
           accountData.append('removeVideo', 'true')
-        }
-        else if (existingVideo && !videoFile) {
+        } else if (existingVideo && !videoFile) {
           accountData.append('existingVideo', existingVideo)
         }
-      } 
-
-      else {
+      } else {
         if (imageFile) {
+          console.log('img')
           accountData.append('img', imageFile)
         }
         if (videoFile) {
+          console.log('video')
           accountData.append('video', videoFile)
         }
       }
@@ -221,6 +260,7 @@ const AccountForm = observer(() => {
       if (isEdit) {
         await updateAccount(id, accountData)
       } else {
+        console.log(accountData)
         await createAccount(accountData)
       }
       navigate(ROUTES.ADMIN_ACCOUNTS)
@@ -229,7 +269,6 @@ const AccountForm = observer(() => {
       console.error('Error:', error)
     }
   }
-
 
   return (
     <motion.div
@@ -265,10 +304,8 @@ const AccountForm = observer(() => {
         </Button>
       </div>
 
-
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.formGrid}>
-
           <div className={styles.column}>
             <div className={styles.section}>
               <h3 className={styles.sectionTitle}>Основная информация</h3>
@@ -344,9 +381,11 @@ const AccountForm = observer(() => {
             <div className={styles.section}>
               <h3 className={styles.sectionTitle}>Медиафайлы</h3>
               
-
               <div className={styles.formGroup}>
-                <label className={styles.label}>Изображение аккаунта</label>
+                <label className={styles.label}>
+                  Изображение аккаунта 
+                  <span className={styles.fileHint}> (макс. 10MB, JPG, PNG, WEBP)</span>
+                </label>
                 <div className={styles.fileUploadSection}>
                   <input
                     type="file"
@@ -399,9 +438,11 @@ const AccountForm = observer(() => {
                 </div>
               </div>
 
-              {/* Загрузка видео */}
               <div className={styles.formGroup}>
-                <label className={styles.label}>Видео обзор</label>
+                <label className={styles.label}>
+                  Видео обзор 
+                  <span className={styles.fileHint}> (макс. 200MB, MP4, AVI, MOV, WMV)</span>
+                </label>
                 <div className={styles.fileUploadSection}>
                   <input
                     type="file"
@@ -463,7 +504,6 @@ const AccountForm = observer(() => {
               </div>
               
               <div className={styles.featuresSection}>
-
                 <div className={styles.formGroup}>
                   <label className={styles.label}>Добавить характеристику</label>
                   <select
