@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Save, ArrowLeft, Plus, Trash2, Video, Image } from 'lucide-react'
+import { Save, ArrowLeft, Plus, Trash2, Video, Image, Loader } from 'lucide-react'
 import { observer } from 'mobx-react-lite'
 import { adminStore } from '../../../stores/adminStore'
 import { accountStore } from '../../../stores/accountStore'
@@ -42,6 +42,8 @@ const AccountForm = observer(() => {
   const [videoFile, setVideoFile] = useState(null)
   const [existingImage, setExistingImage] = useState('')
   const [existingVideo, setExistingVideo] = useState('')
+  const [uploadProgress, setUploadProgress] = useState(0) // Прогресс загрузки
+  const [isUploading, setIsUploading] = useState(false) // Статус загрузки
 
   useEffect(() => {
     if (isEdit && id) {
@@ -221,6 +223,9 @@ const AccountForm = observer(() => {
     }
 
     try {
+      setIsUploading(true)
+      setUploadProgress(0)
+
       const accountData = new FormData()
       
       accountData.append('title', formData.title)
@@ -229,6 +234,25 @@ const AccountForm = observer(() => {
       accountData.append('characters', JSON.stringify(formData.characters))
       accountData.append('price', formData.price)
       accountData.append('status', formData.status)
+
+      // Симуляция прогресса загрузки для больших файлов
+      if (videoFile && videoFile.size > 50 * 1024 * 1024) {
+        // Для больших видео показываем прогресс
+        const totalSize = videoFile.size
+        let uploadedSize = 0
+        
+        // Создаем кастомный FileReader для отслеживания прогресса
+        const reader = new FileReader()
+        reader.onprogress = (e) => {
+          if (e.lengthComputable) {
+            uploadedSize = e.loaded
+            const progress = Math.round((uploadedSize / totalSize) * 100)
+            setUploadProgress(progress)
+          }
+        }
+        
+        reader.readAsArrayBuffer(videoFile)
+      }
 
       if (isEdit) {
         if (imageFile) {
@@ -248,11 +272,9 @@ const AccountForm = observer(() => {
         }
       } else {
         if (imageFile) {
-          console.log('img')
           accountData.append('img', imageFile)
         }
         if (videoFile) {
-          console.log('video')
           accountData.append('video', videoFile)
         }
       }
@@ -260,13 +282,16 @@ const AccountForm = observer(() => {
       if (isEdit) {
         await updateAccount(id, accountData)
       } else {
-        console.log(accountData)
         await createAccount(accountData)
       }
+      
       navigate(ROUTES.ADMIN_ACCOUNTS)
     } catch (error) {
       alert(`Ошибка при ${isEdit ? 'обновлении' : 'создании'} аккаунта`)
       console.error('Error:', error)
+    } finally {
+      setIsUploading(false)
+      setUploadProgress(0)
     }
   }
 
@@ -276,6 +301,54 @@ const AccountForm = observer(() => {
       animate={{ opacity: 1 }}
       className={styles.accountForm}
     >
+      {/* Индикатор загрузки поверх всего */}
+      {isUploading && (
+        <div className={styles.uploadOverlay}>
+          <div className={styles.uploadModal}>
+            <Loader size={48} className={styles.uploadSpinner} />
+            <h3 className={styles.uploadTitle}>
+              {isEdit ? 'Обновление аккаунта' : 'Создание аккаунта'}
+            </h3>
+            <p className={styles.uploadText}>
+              {videoFile && videoFile.size > 50 * 1024 * 1024 
+                ? 'Загружаем видео... Это может занять несколько минут' 
+                : 'Сохраняем данные...'
+              }
+            </p>
+            
+            {/* Прогресс бар для больших файлов */}
+            {videoFile && videoFile.size > 50 * 1024 * 1024 && (
+              <div className={styles.progressContainer}>
+                <div className={styles.progressBar}>
+                  <div 
+                    className={styles.progressFill} 
+                    style={{ width: `${uploadProgress}%` }}
+                  />
+                </div>
+                <span className={styles.progressText}>
+                  {uploadProgress}%
+                </span>
+              </div>
+            )}
+            
+            <div className={styles.uploadDetails}>
+              {videoFile && (
+                <div className={styles.fileInfo}>
+                  <Video size={16} />
+                  <span>Видео: {(videoFile.size / (1024 * 1024)).toFixed(1)} MB</span>
+                </div>
+              )}
+              {imageFile && (
+                <div className={styles.fileInfo}>
+                  <Image size={16} />
+                  <span>Изображение: {(imageFile.size / (1024 * 1024)).toFixed(1)} MB</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className={styles.header}>
         <div className={styles.headerContent}>
           <button 
@@ -296,11 +369,20 @@ const AccountForm = observer(() => {
         <Button
           variant="primary"
           onClick={handleSubmit}
-          disabled={loading}
+          disabled={loading || isUploading}
           className={styles.saveButton}
         >
-          <Save size={16} />
-          {loading ? 'Сохранение...' : (isEdit ? 'Обновить' : 'Создать')}
+          {isUploading ? (
+            <>
+              <Loader size={16} className={styles.buttonSpinner} />
+              {uploadProgress > 0 ? `Загрузка... ${uploadProgress}%` : 'Сохранение...'}
+            </>
+          ) : (
+            <>
+              <Save size={16} />
+              {isEdit ? 'Обновить' : 'Создать'}
+            </>
+          )}
         </Button>
       </div>
 

@@ -40,7 +40,7 @@ const CustomTimeInput = ({ onHoursChange, initialHours = 24 }) => {
         placeholder="24"
       />
       <p className={styles.note}>
-        При аренде более 24 часов действует скидка 10%
+        При аренде более 24 часов действует скидка 55%!
       </p>
     </motion.div>
   )

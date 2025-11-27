@@ -21,17 +21,30 @@
   font-weight: 500;
   transition: all 0.3s ease;
   text-align: center;
+  
+  /* Убираем стандартные стили кнопки */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
 }
 
-.option:hover:not(.disabled) {
-  border-color: var(--color-accent-red);
-  color: var(--color-accent-red);
+/* Hover только для десктопов */
+@media (hover: hover) and (pointer: fine) {
+  .option:hover:not(.disabled) {
+    border-color: var(--color-accent-red);
+    color: var(--color-accent-red);
+    background: rgba(220, 38, 38, 0.05);
+  }
 }
 
 .option.active {
   background: var(--color-accent-red);
   border-color: var(--color-accent-red);
   color: white;
+  
+  /* Убираем любые hover эффекты для активной кнопки */
+  transform: none !important;
 }
 
 .option.custom {
@@ -47,4 +60,50 @@
 .option.disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+  .options {
+    gap: 6px;
+  }
+  
+  .option {
+    padding: 12px 8px;
+    font-size: 13px;
+    min-width: 55px;
+    
+    /* Убираем любые трансформации на мобильных */
+    transform: none !important;
+  }
+  
+  /* Активная кнопка на мобильных */
+  .option.active {
+    background: var(--color-accent-red);
+    border-color: var(--color-accent-red);
+    color: white;
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+  }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+  .options {
+    gap: 4px;
+  }
+  
+  .option {
+    padding: 10px 6px;
+    font-size: 12px;
+    min-width: 50px;
+    border-radius: 6px;
+  }
+}
+
+/* Убираем синее выделение на тап в мобильных браузерах */
+.option {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }

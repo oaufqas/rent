@@ -1,1 +1,0 @@
-import"./index-C-KVzDfL.js";const i=r=>{const c=t=>{let e=r*t;return t>=24?e*=.85:t>=12?e*=.9:t>=6&&(e*=.95),Math.round(e)};return{calculatePrice:c,calculateDiscount:t=>t>=24?15:t>=12?10:t>=6?5:0,calculateHourlyPrice:t=>{const e=c(t);return Math.round(e/t)}}};export{i as u};
