@@ -28,6 +28,8 @@ export const ROUTES = {
   ADMIN_TRANSACTIONS: '/admin/transactions',
   ADMIN_CREATE_ACCOUNT: '/admin/accounts/create',
   ADMIN_EDIT_ACCOUNT: '/admin/accounts/edit/:id',
+  ADMIN_ORDERS_DETAIL: '/admin/orders/:id',
+  ADMIN_TRANSACTIONS_DETAIL: '/admin/transactions/:id',
 
   RULES: '/rules'
 }
@@ -37,7 +39,9 @@ export const generatePath = {
   orderDetail: (id) => `/orders/${id}`,
   adminOrder: (id) => `/admin/orders/${id}`,
   createReview: (id) => `/create-review/${id}`,
-  editAccount: (id) => `/admin/accounts/edit/${id}`
+  editAccount: (id) => `/admin/accounts/edit/${id}`,
+  adminOrderDetail: (id) => `/admin/orders/${id}`,
+  adminTransactionDetail: (id) => `/admin/transactions/${id}`
 }
 
 export const USER_ROLES = {

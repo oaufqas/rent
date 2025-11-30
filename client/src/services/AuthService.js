@@ -1,4 +1,4 @@
-import $api from "./api"
+import $api from "./Api"
 
 export const authService = {
   register: (email, password) => $api.post('/auth/register', {email, password}),

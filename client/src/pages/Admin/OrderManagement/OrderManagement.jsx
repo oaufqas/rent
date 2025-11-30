@@ -4,28 +4,22 @@ import { observer } from 'mobx-react-lite'
 import { useEffect, useState } from 'react'
 import { adminStore } from '../../../stores/adminStore'
 import Button from '../../../components/ui/Button/Button'
-import Modal from '../../../components/ui/Modal/Modal'
-import OrderModal from '../../../components/admin/Modals/OrderModal'
 import { formatCurrency } from '../../../utils/formatters'
 import { formatToMoscowTime } from '../../../utils/dateUtils'
 import styles from './OrderManagement.module.css'
+import { generatePath } from '../../../utils/constants'
+import { useNavigate } from 'react-router-dom'
 
 const OrderManagement = observer(() => {
   const { 
     orders, 
     loading, 
     fetchOrders, 
-    approveOrder, 
-    rejectOrder, 
-    verifyUser, 
-    completeOrder 
   } = adminStore
 
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('pending')
-  const [selectedOrder, setSelectedOrder] = useState(null)
-  const [showDetailsModal, setShowDetailsModal] = useState(false)
-  const [modalLoading, setModalLoading] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchOrders()
@@ -38,95 +32,14 @@ const OrderManagement = observer(() => {
     return matchesSearch && matchesStatus
   })
 
-  const handleApprove = async (orderId) => {
-    setModalLoading(true)
-    try {
-      await approveOrder(orderId)
-      setShowDetailsModal(false)
-      await fetchOrders()
-    } catch (error) {
-      alert('Ошибка при подтверждении заказа')
-    } finally {
-      setModalLoading(false)
-    }
-  }
-  
-  const handleReject = async (orderId) => {
-    setModalLoading(true)
-    try {
-      await rejectOrder(orderId)
-      setShowDetailsModal(false)
-      await fetchOrders()
-    } catch (error) {
-      alert('Ошибка при отклонении заказа')
-    } finally {
-      setModalLoading(false)
-    }
-  }
-  
-  const handleVerifyUser = async (orderId) => {
-    setModalLoading(true)
-    try {
-      await verifyUser(orderId)
-      setShowDetailsModal(false)
-      await fetchOrders()
-    } catch (error) {
-      alert('Ошибка при верификации пользователя')
-    } finally {
-      setModalLoading(false)
-    }
-  }
-  
-  const handleComplete = async (orderId) => {
-    setModalLoading(true)
-    try {
-      await completeOrder(orderId)
-      setShowDetailsModal(false)
-      await fetchOrders()
-    } catch (error) {
-      alert('Ошибка при завершении заказа')
-    } finally {
-      setModalLoading(false)
-    }
-  }
-
   const handleViewDetails = (order) => {
-    setSelectedOrder(order)
-    setShowDetailsModal(true)
+    navigate(generatePath.adminOrderDetail(order.id))
   }
-
-  const handleDownloadCheck = async (checkFilename) => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/checks/${checkFilename}`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = checkFilename;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-      } else {
-        alert('Ошибка при скачивании чека');
-      }
-    } catch (error) {
-      console.error('Error downloading check:', error);
-      alert('Ошибка при скачивании чека');
-    }
-  };
 
   const getStatusColor = (status) => {
     const colors = {
       pending: 'warning',
-      paid: 'info', 
+      paid: 'warning', 
       verified: 'info',
       active: 'success',
       completed: 'secondary',
@@ -145,72 +58,6 @@ const OrderManagement = observer(() => {
       cancelled: 'Отменен'
     }
     return texts[status] || status
-  }
-
-  const getActions = (order) => {
-    switch (order.status) {
-      case 'pending':
-        return (
-          <>
-            <Button
-              className={styles.approveBtn}
-              size="small"
-              onClick={() => handleApprove(order.id)}
-            >
-              Принять
-            </Button>
-            <Button
-              className={styles.rejectBtn}
-              size="small"
-              onClick={() => handleReject(order.id)}
-            >
-              Отклонить
-            </Button>
-          </>
-        )
-      case 'paid':
-        return (
-          <Button
-            className={styles.verifyBtn}
-            size="small"
-            onClick={() => handleVerifyUser(order.id)}
-          >
-            Проверить пользователя
-          </Button>
-        )
-      case 'verified':
-        return (
-          <>
-            <Button
-              className={styles.completeBtn}
-              size="small"
-              onClick={() => handleComplete(order.id)}
-            >
-              Выдать аккаунт
-            </Button>
-          
-            <Button
-              className={styles.rejectBtn}
-              size="small"
-              onClick={() => handleReject(order.id)}
-            >
-              Отклонить
-            </Button>
-          </>
-        )
-      case 'active':
-        return (
-          <Button
-            className={styles.rejectBtn}
-            size="small"
-            onClick={() => handleReject(order.id)}
-          >
-            Принудительно завершить
-          </Button>
-        )
-      default:
-        return null
-    }
   }
 
   return (
@@ -255,7 +102,6 @@ const OrderManagement = observer(() => {
         </div>
       </div>
 
-      {/* Таблица заказов */}
       <div className={styles.tableContainer}>
         {loading ? (
           <div className={styles.loading}>
@@ -305,7 +151,6 @@ const OrderManagement = observer(() => {
                   <td className={styles.date}>{formatToMoscowTime(order.createdAt)}</td>
                   <td>
                     <div className={styles.actions}>
-                      {getActions(order)}
                       <Button
                         onClick={() => handleViewDetails(order)}
                         className={styles.viewBtn}
@@ -367,7 +212,6 @@ const OrderManagement = observer(() => {
             </div>
             
             <div className={styles.mobileActions}>
-              {getActions(order)}
               <Button
                 onClick={() => handleViewDetails(order)}
                 className={styles.viewBtn}
@@ -379,24 +223,6 @@ const OrderManagement = observer(() => {
           </motion.div>
         ))}
       </div>
-
-      {/* Модальное окно с вынесенным компонентом */}
-      <Modal
-        isOpen={showDetailsModal}
-        onClose={() => setShowDetailsModal(false)}
-        title={`Заказ #${selectedOrder?.id}`}
-        size="large"
-      >
-        <OrderModal
-          order={selectedOrder}
-          onApprove={handleApprove}
-          onReject={handleReject}
-          onVerifyUser={handleVerifyUser}
-          onComplete={handleComplete}
-          onDownloadCheck={handleDownloadCheck}
-          loading={modalLoading}
-        />
-      </Modal>
 
       {filteredOrders.length === 0 && !loading && (
         <motion.div

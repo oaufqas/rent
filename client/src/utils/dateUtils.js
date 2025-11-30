@@ -1,10 +1,15 @@
 // utils/dateUtils.js
 
-/**
- * Форматирование даты в московское время
- */
 export const formatToMoscowTime = (dateString, options = {}) => {
   const date = new Date(dateString);
+  
+  // Проверяем, является ли время уже московским
+  const isAlreadyMoscowTime = () => {
+    // Получаем смещение в минутах для переданной даты
+    const timezoneOffset = date.getTimezoneOffset();
+    // Московское время = UTC+3 = -180 минут
+    return timezoneOffset === -180;
+  };
   
   const defaultOptions = {
     timeZone: 'Europe/Moscow',
@@ -15,6 +20,15 @@ export const formatToMoscowTime = (dateString, options = {}) => {
     minute: '2-digit',
     hour12: false
   };
+  
+  // Если время уже московское, форматируем без указания таймзоны
+  if (isAlreadyMoscowTime()) {
+    return date.toLocaleString('ru-RU', { 
+      ...defaultOptions,
+      timeZone: undefined, // Убираем принудительную конвертацию
+      ...options 
+    });
+  }
   
   return date.toLocaleString('ru-RU', { ...defaultOptions, ...options });
 };

@@ -1,4 +1,4 @@
-import api from './api';
+import api from './Api';
 
 export const adminService = {
 
@@ -12,6 +12,7 @@ export const adminService = {
   
   
   getOrders: (params = {}) => api.get('/admin/orders', { params }),
+  getFindOrder: (id) => api.get(`/admin/order/${id}`),
   getPendingOrders: () => api.get('/admin/orders/pending'),
   updateOrderStatus: (id, status, reason = '') => api.put(`/admin/orders/${id}/status`, { status, reason }),
   approveOrder: (id) => api.put(`/admin/orders/${id}/approve`),
@@ -27,6 +28,7 @@ export const adminService = {
   
 
   getTransactions: (params = {}) => api.get('/admin/deposit-requests', { params }),
+  getFindTransaction: (id) => api.get(`/admin/deposit-request/${id}`),
   getPendingTransactions: () => api.get('/admin/deposit-requests/pending'),
   approveTransaction: (id) => api.put(`/admin/deposit-requests/${id}/approve`),
   rejectTransaction: (id, reason) => api.put(`/admin/deposit-requests/${id}/reject`),

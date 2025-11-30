@@ -4,23 +4,18 @@ import { observer } from 'mobx-react-lite'
 import { useEffect, useState } from 'react'
 import { adminStore } from '../../../stores/adminStore'
 import DashboardCard from '../../../components/admin/DashboardCard/DashboardCard'
-import Modal from '../../../components/ui/Modal/Modal'
-import TransactionModal from '../../../components/admin/Modals/TransactionModal'
-import OrderModal from '../../../components/admin/Modals/OrderModal'
 import Button from '../../../components/ui/Button/Button'
 import { formatCurrency } from '../../../utils/formatters'
 import { formatToMoscowTime } from '../../../utils/dateUtils'
 import styles from './Dashboard.module.css'
+import { generatePath } from '../../../utils/constants'
+import { useNavigate } from 'react-router-dom'
 
 const Dashboard = observer(() => {
   const { dashboardStats, loading, fetchDashboardStats, fetchPendingOrders, fetchPendingTransactions } = adminStore
   const [pendingOrders, setPendingOrders] = useState([])
   const [pendingTransactions, setPendingTransactions] = useState([])
-  const [selectedOrder, setSelectedOrder] = useState(null)
-  const [selectedTransaction, setSelectedTransaction] = useState(null)
-  const [showOrderModal, setShowOrderModal] = useState(false)
-  const [showTransactionModal, setShowTransactionModal] = useState(false)
-  const [modalLoading, setModalLoading] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchDashboardStats()
@@ -40,128 +35,12 @@ const Dashboard = observer(() => {
     }
   }
 
-  // Обработчики для заказов
-  const handleApproveOrder = async (orderId) => {
-    setModalLoading(true)
-    try {
-      await adminStore.approveOrder(orderId)
-      await loadPendingItems()
-      setShowOrderModal(false)
-    } catch (error) {
-      alert('Ошибка при подтверждении заказа')
-    } finally {
-      setModalLoading(false)
-    }
+  const handleViewOrderDetails = (order) => {
+    navigate(generatePath.adminOrderDetail(order.id))
   }
 
-  const handleRejectOrder = async (orderId) => {
-    setModalLoading(true)
-    try {
-      await adminStore.rejectOrder(orderId)
-      await loadPendingItems()
-      setShowOrderModal(false)
-    } catch (error) {
-      alert('Ошибка при отклонении заказа')
-    } finally {
-      setModalLoading(false)
-    }
-  }
-
-  const handleVerifyUser = async (orderId) => {
-    setModalLoading(true)
-    try {
-      await adminStore.verifyUser(orderId)
-      await loadPendingItems()
-      setShowOrderModal(false)
-    } catch (error) {
-      alert('Ошибка при верификации пользователя')
-    } finally {
-      setModalLoading(false)
-    }
-  }
-
-  const handleCompleteOrder = async (orderId) => {
-    setModalLoading(true)
-    try {
-      await adminStore.completeOrder(orderId)
-      await loadPendingItems()
-      setShowOrderModal(false)
-    } catch (error) {
-      alert('Ошибка при завершении заказа')
-    } finally {
-      setModalLoading(false)
-    }
-  }
-
-  // Обработчики для транзакций
-  const handleApproveTransaction = async (transactionId) => {
-    setModalLoading(true)
-    try {
-      await adminStore.approveTransaction(transactionId)
-      await loadPendingItems()
-      setShowTransactionModal(false)
-    } catch (error) {
-      alert('Ошибка при подтверждении транзакции')
-    } finally {
-      setModalLoading(false)
-    }
-  }
-
-  const handleRejectTransaction = async (transactionId) => {
-    setModalLoading(true)
-    try {
-      await adminStore.rejectTransaction(transactionId)
-      await loadPendingItems()
-      setShowTransactionModal(false)
-    } catch (error) {
-      alert('Ошибка при отклонении транзакции')
-    } finally {
-      setModalLoading(false)
-    }
-  }
-
-  const handleDownloadCheck = async (checkFilename) => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/checks/${checkFilename}`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = checkFilename;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-      } else {
-        alert('Ошибка при скачивании чека');
-      }
-    } catch (error) {
-      console.error('Error downloading check:', error);
-      alert('Ошибка при скачивании чека');
-    }
-  };
-
-  const handleViewCheck = (checkFilename) => {
-    const checkUrl = `${import.meta.env.VITE_API_URL}/admin/checks/${checkFilename}`;
-    window.open(checkUrl, '_blank');
-  };
-
-  // Функции открытия модалок
-  const handleOpenOrderModal = (order) => {
-    setSelectedOrder(order)
-    setShowOrderModal(true)
-  }
-
-  const handleOpenTransactionModal = (transaction) => {
-    setSelectedTransaction(transaction)
-    setShowTransactionModal(true)
+  const handleViewTransactionDetails = (transaction) => {
+    navigate(generatePath.adminTransactionDetail(transaction.id))
   }
 
   const getOrderStatusText = (status) => {
@@ -242,7 +121,6 @@ const Dashboard = observer(() => {
         ))}
       </motion.div>
 
-      {/* Блок заказов и заявок на полную ширину */}
       {hasPendingItems && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -258,7 +136,7 @@ const Dashboard = observer(() => {
           </div>
 
           <div className={styles.pendingGrid}>
-            {/* Заказы */}
+
             {pendingOrders.length > 0 && (
               <div className={styles.pendingColumn}>
                 <h3 className={styles.columnTitle}>
@@ -300,7 +178,7 @@ const Dashboard = observer(() => {
                         <Button
                           variant="secondary"
                           size="small"
-                          onClick={() => handleOpenOrderModal(order)}
+                          onClick={() => handleViewOrderDetails(order)}
                           className={styles.viewButton}
                         >
                           <Eye size={14} />
@@ -313,7 +191,6 @@ const Dashboard = observer(() => {
               </div>
             )}
 
-            {/* Заявки на пополнение */}
             {pendingTransactions.length > 0 && (
               <div className={styles.pendingColumn}>
                 <h3 className={styles.columnTitle}>
@@ -357,7 +234,7 @@ const Dashboard = observer(() => {
                         <Button
                           variant="secondary"
                           size="small"
-                          onClick={() => handleOpenTransactionModal(transaction)}
+                          onClick={() => handleViewTransactionDetails(transaction)}
                           className={styles.viewButton}
                         >
                           <Eye size={14} />
@@ -406,42 +283,6 @@ const Dashboard = observer(() => {
         </div>
       </motion.div>
 
-      {/* Модальное окно заказа */}
-      <Modal
-        isOpen={showOrderModal}
-        onClose={() => setShowOrderModal(false)}
-        title={`Заказ #${selectedOrder?.id}`}
-        size="large"
-      >
-        <OrderModal
-          order={selectedOrder}
-          onApprove={handleApproveOrder}
-          onReject={handleRejectOrder}
-          onVerifyUser={handleVerifyUser}
-          onComplete={handleCompleteOrder}
-          onDownloadCheck={handleDownloadCheck}
-          loading={modalLoading}
-        />
-      </Modal>
-
-      {/* Модальное окно транзакции */}
-      <Modal
-        isOpen={showTransactionModal}
-        onClose={() => setShowTransactionModal(false)}
-        title={`Транзакция #${selectedTransaction?.id}`}
-        size="large"
-      >
-        <TransactionModal
-          transaction={selectedTransaction}
-          onApprove={handleApproveTransaction}
-          onReject={handleRejectTransaction}
-          onDownloadCheck={handleDownloadCheck}
-          onViewCheck={handleViewCheck}
-          loading={modalLoading}
-        />
-      </Modal>
-
-      {/* Если нет pending items */}
       {!hasPendingItems && !loading && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}

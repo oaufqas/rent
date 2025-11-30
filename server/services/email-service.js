@@ -4,44 +4,44 @@ class EmailService {
 
     constructor() {
         try {
-        this.transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_PASS
-            }
-        })
-            // this.transporter = nodemailer.createTransport({
-            //     host: 'smtp.timeweb.ru',
-            //     port: 465,
-            //     secure: true,
-            //     auth: {
-            //         user: process.env.GMAIL_USER,
-            //         pass: process.env.GMAIL_PASS
-            //     },
+        // this.transporter = nodemailer.createTransport({
+        //     service: 'gmail',
+        //     auth: {
+        //         user: process.env.GMAIL_USER,
+        //         pass: process.env.GMAIL_PASS
+        //     }
+        // })
+            this.transporter = nodemailer.createTransport({
+                host: 'smtp.timeweb.ru',
+                port: 465,
+                secure: true,
+                auth: {
+                    user: process.env.GMAIL_USER,
+                    pass: process.env.GMAIL_PASS
+                },
 
-            //     tls: {
-            //         rejectUnauthorized: false
-            //     },
-            //     connectionTimeout: 10000,
-            //     greetingTimeout: 10000,
-            //     socketTimeout: 30000
-            // })
+                tls: {
+                    rejectUnauthorized: false
+                },
+                connectionTimeout: 10000,
+                greetingTimeout: 10000,
+                socketTimeout: 30000
+            })
 
-            // this.verifyConnection()
+            this.verifyConnection()
         } catch (e) {
                 console.error(e)
         }
     }
 
-    // async verifyConnection() {
-    //     try {
-    //         await this.transporter.verify();
-    //         console.log('SMTP connection verified successfully');
-    //     } catch (error) {
-    //         console.error('SMTP connection failed:', error);
-    //     }
-    // }
+    async verifyConnection() {
+        try {
+            await this.transporter.verify();
+            console.log('SMTP connection verified successfully');
+        } catch (error) {
+            console.error('SMTP connection failed:', error);
+        }
+    }
 
     async sendMultipleEmails(emails) {
         try {

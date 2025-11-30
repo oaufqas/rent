@@ -19,7 +19,6 @@
   margin: 0;
 }
 
-/* Существующие стили остаются, добавляем новые */
 
 .pendingSection {
   background: var(--color-bg-card);
@@ -435,9 +434,9 @@
 }
 
 .viewButton {
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  color: rgb(233, 233, 240);
+  background: rgba(122, 12, 12, 0.432);
+  border: 1px solid rgba(214, 32, 32, 0.651);
+  color: white;
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 12px;
@@ -450,7 +449,7 @@
 
 .viewButton:hover {
   background: var(--color-primary);
-  color: white;
+  color: rgb(239, 68, 68);
   transform: translateY(-1px);
 }
 

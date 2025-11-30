@@ -96,6 +96,19 @@ class BalanceService {
     }
 
 
+    async getOneDepositRequest(id) {
+        try{
+            const requestData = await db.Transaction.findByPk(id, {include: [{model: db.User}]})
+            if (!requestData) {
+                throw ApiError.BadRequest('Transaction not found')                
+            }
+            return requestData
+        } catch (e) {
+            throw ApiError.ElseError(e)
+        }
+    }
+
+
 
     async getPendingDepositRequests() {
         try{

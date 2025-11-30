@@ -27,6 +27,8 @@ const AdminAccounts = lazy(() => import('../pages/Admin/AccountManagement/Accoun
 const AdminPayMethods = lazy(() => import('../pages/Admin/PaymentMethodsManagement/PaymentMethodsManagement'))
 const AdminTransactions = lazy(() => import('../pages/Admin/TransactionManagement/TransactionManagement'))
 const AccountForm = lazy(() => import('../pages/Admin/AccountForm/AccountFrom'))
+const adminOrderDetail = lazy(() => import('../pages/Admin/AdminOrderDetail/AdminOrderDetail'))
+const adminTransactionDetail = lazy(() => import('../pages/Admin/AdminTransactionDetail/AdminTransactionDetai'))
 
 export const routes = [
   {
@@ -178,6 +180,20 @@ export const routes = [
   {
     path: ROUTES.ADMIN_TRANSACTIONS,
     element: AdminTransactions,
+    layout: 'admin',
+    requiresAuth: true,
+    requiredRole: USER_ROLES.ADMIN
+  },
+  {
+    path: ROUTES.ADMIN_ORDERS_DETAIL,
+    element: adminOrderDetail,
+    layout: 'admin',
+    requiresAuth: true,
+    requiredRole: USER_ROLES.ADMIN
+  },
+  {
+    path: ROUTES.ADMIN_TRANSACTIONS_DETAIL,
+    element: adminTransactionDetail,
     layout: 'admin',
     requiresAuth: true,
     requiredRole: USER_ROLES.ADMIN

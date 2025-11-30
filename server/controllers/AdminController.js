@@ -99,6 +99,20 @@ class AdminController {
 
 
 
+    async getOneOrder(req, res, next) {
+        try {
+            const id = req.params.id
+
+            const orderData = await orderService.getOneOrder(id)
+
+            return res.json(orderData)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+
+
     async getPendingOrders(req, res, next) {
         try {
             const sortedData = await orderService.getPendingOrders()
@@ -281,6 +295,19 @@ class AdminController {
     async getAllDepRequests(req, res, next) {
         try {
             const requestsData = await balanceService.getAllDepositRequests()
+
+            return res.json(requestsData)
+        } catch (e) {
+            next(e)
+        }
+    }
+
+
+
+    async getOneDepRequest(req, res, next) {
+        try {
+            const id = req.params.id
+            const requestsData = await balanceService.getOneDepositRequest(id)
 
             return res.json(requestsData)
         } catch (e) {

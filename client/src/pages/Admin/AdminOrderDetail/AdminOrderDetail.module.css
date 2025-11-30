@@ -1,0 +1,99 @@
+.orderDetailPage {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.backButton:hover:not(:disabled) {
+  background: var(--color-bg-secondary);
+  color: white;
+}
+
+.backButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.headerContent {
+  flex: 1;
+}
+
+.title {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.loadingContainer, .errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  text-align: center;
+  gap: 16px;
+}
+
+.spinner {
+  color: var(--color-accent-red);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.errorContainer h2 {
+  color: white;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .orderDetailPage {
+    padding: 16px;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+}

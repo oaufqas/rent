@@ -1,11 +1,10 @@
-import { motion } from 'framer-motion'
 import { Check, X, UserCheck, Eye } from 'lucide-react'
-import Button from '../../../components/ui/Button/Button'
+import Button from '../../ui/Button/Button'
 import { formatCurrency } from '../../../utils/formatters'
 import { formatToMoscowTime } from '../../../utils/dateUtils'
-import styles from './OrderModal.module.css'
+import styles from './OrderDetail.module.css'
 
-const OrderModal = ({ 
+const OrderDetail = ({ 
   order, 
   onApprove, 
   onReject, 
@@ -183,6 +182,28 @@ const OrderModal = ({
                 {order.accountId ? `#${order.account?.account_number}` : 'Не назначен'}
               </span>
             </div>
+            
+            {/* Чек внутри основной информации */}
+            {order.check && (
+              <div className={styles.checkItem}>
+                <span className={styles.detailLabel}>Чек об оплате:</span>
+                <div className={styles.checkContent}>
+                  <div className={styles.checkInfo}>
+                    <span className={styles.checkName}>{order.check}</span>
+                    <span className={styles.checkHint}>Файл подтверждения оплаты</span>
+                  </div>
+                  <Button
+                    variant="primary"
+                    size="small"
+                    onClick={() => onDownloadCheck(order.check)}
+                    className={styles.checkButton}
+                  >
+                    <Eye size={16} />
+                    Скачать
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className={styles.detailSection}>
@@ -212,7 +233,40 @@ const OrderModal = ({
           </div>
         </div>
 
+
         <div className={styles.column}>
+          {order.account && (
+            <div className={styles.detailSection}>
+              <h3 className={styles.sectionTitle}>
+                Информация об аккаунте
+              </h3>
+              <div className={styles.detailItem}>
+                <span className={styles.detailLabel}>Номер аккаунта:</span>
+                <span className={styles.detailValue}>#{order.account.account_number}</span>
+              </div>
+              <div className={styles.detailItem}>
+                <span className={styles.detailLabel}>Название:</span>
+                <span className={styles.detailValue}>{order.account.title}</span>
+              </div>
+              <div className={styles.detailItem}>
+                <span className={styles.detailLabel}>
+                  Цена за час:
+                </span>
+                <span className={`${styles.detailValue} ${styles.price}`}>
+                  {formatCurrency(order.account.price)}
+                </span>
+              </div>
+              <div className={styles.detailItem}>
+                <span className={styles.detailLabel}>
+                  Общая стоимость:
+                </span>
+                <span className={`${styles.detailValue} ${styles.totalPrice}`}>
+                  {formatCurrency(order.account.price * order.rentPeriod)}
+                </span>
+              </div>
+            </div>
+          )}
+
           <div className={styles.detailSection}>
             <h3 className={styles.sectionTitle}>Временные метки</h3>
             <div className={styles.detailItem}>
@@ -255,38 +309,7 @@ const OrderModal = ({
             </div>
           </div>
 
-          {order.check && (
-          <div className={styles.detailSection}>
-            <h3 className={styles.sectionTitle}>Чек об оплате</h3>
-            {order.check ? (
-              <div className={styles.checkSection}>
-                <div className={styles.checkInfo}>
-                  <div className={styles.checkDetails}>
-                    <span className={styles.checkName}>{order.check}</span>
-                    <span className={styles.checkHint}>Файл подтверждения оплаты</span>
-                  </div>
-                </div>
-                <div className={styles.checkActions}>
-                  <Button
-                    variant="primary"
-                    size="small"
-                    onClick={() => onDownloadCheck(order.check)}
-                  >
-                    <Eye size={16} />
-                    Скачать чек
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <div className={styles.noCheck}>
-                <div className={styles.noCheckText}>
-                  <span className={styles.noCheckTitle}>Чек не предоставлен</span>
-                  <span className={styles.noCheckHint}>Пользователь не прикрепил чек об оплате</span>
-                </div>
-              </div>
-            )}
-          </div>
-          )}
+
         </div>
       </div>
 
@@ -328,4 +351,4 @@ const OrderModal = ({
   )
 }
 
-export default OrderModal
+export default OrderDetail

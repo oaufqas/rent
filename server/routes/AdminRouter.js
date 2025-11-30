@@ -4,6 +4,7 @@ import checkRole from '../middleware/checkRole-middleware.js'
 const router = new Router()
 
 router.get('/orders', checkRole('admin'), AdminController.getAllOrders)
+router.get('/order/:id', checkRole('admin'), AdminController.getOneOrder)
 router.get('/orders/pending', checkRole('admin'), AdminController.getPendingOrders),
 router.put('/orders/:id/approve', checkRole('admin'), AdminController.approveRequest)
 router.put('/orders/:id/reject', checkRole('admin'), AdminController.rejectRequest)
@@ -21,6 +22,7 @@ router.put('/payment-methods/:id', checkRole('admin'), AdminController.changePay
 router.delete('/payment-methods/:id', checkRole('admin'), AdminController.deletePayMethod)
 
 router.get('/deposit-requests', checkRole('admin'), AdminController.getAllDepRequests)
+router.get('/deposit-request/:id', checkRole('admin'), AdminController.getOneDepRequest)
 router.get('/deposit-requests/pending', checkRole('admin'), AdminController.getPendingDepRequests),
 router.put('/deposit-requests/:id/approve', checkRole('admin'), AdminController.approveDepRequest)
 router.put('/deposit-requests/:id/reject', checkRole('admin'), AdminController.rejectDepRequest)

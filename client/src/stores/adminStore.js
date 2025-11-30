@@ -20,6 +20,9 @@ class AdminStore {
 
   users = []
 
+  findOrder = {}
+  
+  findTransaction = {}
     
     constructor() {
         makeAutoObservable(this)
@@ -47,6 +50,14 @@ class AdminStore {
 
     setTransactions(transactions) {
         this.transactions = transactions
+    }
+
+    setFindTransaction(transaction) {
+        this.findTransaction = transaction
+    }
+
+    setFindOrder(order) {
+        this.findOrder = order
     }
 
     setUsers(users) {
@@ -167,6 +178,19 @@ class AdminStore {
         }
     }
 
+
+    fetchFindOrder = async (id) => {
+        this.setLoading(true)
+        try {
+            const response = await adminService.getFindOrder(id);
+            this.setFindOrder(response.data);
+        } catch (error) {
+            throw error;
+        } finally {
+            this.setLoading(false)
+        }
+    }
+
   
     approveOrder = async (id) => {
         this.setLoading(true)
@@ -272,6 +296,19 @@ class AdminStore {
         try {
             const response = await adminService.getTransactions(params);
             this.setTransactions(response.data);
+        } catch (error) {
+            throw error;
+        } finally {
+            this.setLoading(false)
+        }
+    }
+
+
+    fetchFindTransaction = async (id) => {
+        this.setLoading(true)
+        try {
+            const response = await adminService.getFindTransaction(id);
+            this.setFindTransaction(response.data);
         } catch (error) {
             throw error;
         } finally {

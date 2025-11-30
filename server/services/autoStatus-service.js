@@ -7,8 +7,8 @@ class AutoStatusService {
 
     async checkRentalsForMail() {
         try {
-            const now = new Date();
-            const fiveMinutsLater = new Date(now.getTime() + 5 * 60 * 60 * 1000)
+            const now = new Date(Date.now())
+            const fiveMinutsLater = new Date(now.getTime()  + 5 * 60 * 1000)
 
             const expiredOrders = await db.Order.findAll({
                 where: {
@@ -49,7 +49,7 @@ class AutoStatusService {
 
     async checkExpiredRentals() {
         try {
-            const now = new Date();
+            const now = new Date(Date.now())
             
 
             const expiredAccounts = await db.Account.findAll({
@@ -79,7 +79,7 @@ class AutoStatusService {
 
     async checkExpiredCodes() {
         try {
-            const now = new Date();
+            const now = new Date(Date.now())
             
 
             const expiredUserCodes = await db.User.findAll({
@@ -109,7 +109,7 @@ class AutoStatusService {
 
     async checkExpiredOrders() {
         try {
-            const now = new Date();
+            const now = new Date(Date.now())
             
             const expiredOrders = await db.Order.findAll({
                 where: {

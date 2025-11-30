@@ -4,8 +4,8 @@ import { observer } from 'mobx-react-lite'
 import { useEffect, useState } from 'react'
 import { adminStore } from '../../../stores/adminStore'
 import Button from '../../../components/ui/Button/Button'
-import Modal from '../../../components/ui/Modal/Modal'
-import TransactionModal from '../../../components/admin/Modals/TransactionModal'
+import { useNavigate } from 'react-router-dom'
+import { generatePath } from '../../../utils/constants'
 import { formatCurrency } from '../../../utils/formatters'
 import { formatToMoscowTime } from '../../../utils/dateUtils'
 import styles from './TransactionManagement.module.css'
@@ -22,9 +22,9 @@ const TransactionManagement = observer(() => {
   const [typeFilter, setTypeFilter] = useState('deposit')
   const [statusFilter, setStatusFilter] = useState('pending')
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedTransaction, setSelectedTransaction] = useState(null)
-  const [showDetailsModal, setShowDetailsModal] = useState(false)
-  const [modalLoading, setModalLoading] = useState(false)
+
+  const navigate = useNavigate()
+
 
   useEffect(() => {
     fetchTransactions()
@@ -73,67 +73,10 @@ const TransactionManagement = observer(() => {
     return methods[method] || method
   }
 
-  const handleApprove = async (transactionId) => {
-    setModalLoading(true)
-    try {
-      await approveTransaction(transactionId)
-      setShowDetailsModal(false)
-      await fetchTransactions()
-    } catch (error) {
-      alert('Ошибка при подтверждении транзакции')
-    } finally {
-      setModalLoading(false)
-    }
-  }
-
-  const handleReject = async (transactionId) => {
-    const reason = prompt('Причина отклонения:')
-    if (reason) {
-      setModalLoading(true)
-      try {
-        await rejectTransaction(transactionId, reason)
-        setShowDetailsModal(false)
-        await fetchTransactions()
-      } catch (error) {
-        alert('Ошибка при отклонении транзакции')
-      } finally {
-        setModalLoading(false)
-      }
-    }
-  }
-
   const handleViewDetails = (transaction) => {
-    setSelectedTransaction(transaction)
-    setShowDetailsModal(true)
+    navigate(generatePath.adminTransactionDetail(transaction.id))
   }
 
-  const handleDownloadCheck = async (checkFilename) => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/checks/${checkFilename}`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = checkFilename;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-      } else {
-        alert('Ошибка при скачивании чека');
-      }
-    } catch (error) {
-      console.error('Error downloading check:', error);
-      alert('Ошибка при скачивании чека');
-    }
-  };
 
   const handleExport = () => {
     const headers = ['ID', 'Пользователь', 'Тип', 'Сумма', 'Статус', 'Метод', 'Дата']
@@ -299,25 +242,6 @@ const TransactionManagement = observer(() => {
                       >
                         <Eye size={16} />
                       </button>
-                      
-                      {transaction.status === 'pending' && transaction.type === 'deposit' && (
-                        <>
-                          <button
-                            onClick={() => handleApprove(transaction.id)}
-                            className={styles.actionBtn}
-                            title="Подтвердить"
-                          >
-                            <Check size={16} />
-                          </button>
-                          <button
-                            onClick={() => handleReject(transaction.id)}
-                            className={`${styles.actionBtn} ${styles.reject}`}
-                            title="Отклонить"
-                          >
-                            <X size={16} />
-                          </button>
-                        </>
-                      )}
                     </div>
                   </td>
                 </motion.tr>
@@ -382,47 +306,11 @@ const TransactionManagement = observer(() => {
                 <Eye size={16} />
                 Детали
               </button>
-              
-              {transaction.status === 'pending' && transaction.type === 'deposit' && (
-                <>
-                  <button
-                    onClick={() => handleApprove(transaction.id)}
-                    className={styles.actionBtn}
-                    title="Подтвердить"
-                  >
-                    <Check size={16} />
-                    Подтвердить
-                  </button>
-                  <button
-                    onClick={() => handleReject(transaction.id)}
-                    className={`${styles.actionBtn} ${styles.reject}`}
-                    title="Отклонить"
-                  >
-                    <X size={16} />
-                    Отклонить
-                  </button>
-                </>
-              )}
             </div>
           </motion.div>
         ))}
       </div>
 
-
-      <Modal
-        isOpen={showDetailsModal}
-        onClose={() => setShowDetailsModal(false)}
-        title={`Транзакция #${selectedTransaction?.id}`}
-        size="large"
-      >
-        <TransactionModal
-          transaction={selectedTransaction}
-          onApprove={handleApprove}
-          onReject={handleReject}
-          onDownloadCheck={handleDownloadCheck}
-          loading={modalLoading}
-        />
-      </Modal>
 
       {filteredTransactions.length === 0 && !loading && (
         <motion.div

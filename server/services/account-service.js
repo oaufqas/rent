@@ -62,20 +62,16 @@ class AccountService {
 
 
     async createAccount(account_number, title, description, characters, price, img, video, status) {
-        let pathToImg
-        let pathToVideo
-
+        const pathToImg = await uploadService.uploadImg(img)
+        const pathToVideo = await uploadService.uploadVideo(video)
+        
         try {
-            pathToImg = await uploadService.uploadImg(img)
-            pathToVideo = await uploadService.uploadVideo(video)
-    
             const accData = await db.Account.create({account_number, title, description, characters, price, status, img: pathToImg, video: pathToVideo})
             return accData
 
         } catch (e) {
             if (pathToImg) await uploadService.deleteFile(pathToImg, 'img');
             if (pathToVideo) await uploadService.deleteFile(pathToVideo, 'video');
-            console.log('REMOVING FILES...................')
             throw ApiError.ElseError(e)
         }
     }

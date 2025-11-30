@@ -52,6 +52,7 @@ const AccountDetail = observer(() => {
     }
   }, [selectedHours])
 
+
   const handleTimeChange = (hours) => {
     setSelectedHours(hours)
     if (hours !== 'custom') {

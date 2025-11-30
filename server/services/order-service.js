@@ -130,6 +130,22 @@ class OrderService {
     }
 
 
+    async getOneOrder(id) {
+        try {
+            const orderData = await db.Order.findByPk(id, {include: [{model: db.User}, {model: db.Account}]})
+            
+            if (!orderData) {
+                throw ApiError.BadRequest('Order not found')                
+            }
+
+            return orderData
+            
+        } catch (e) {
+            throw ApiError.ElseError(e)
+        }
+    }
+
+
     async getPendingOrders() {
         try {
 
@@ -209,7 +225,7 @@ class OrderService {
             const searchTransaction = await db.Transaction.findOne({where: {orderId: searchOrder.id}})
             
             const startsAt = new Date(Date.now())
-            const expiresAt = new Date(Date.now() + searchOrder.rentPeriod * 60 * 60 * 1000)
+            const expiresAt = new Date((Date.now()) + searchOrder.rentPeriod * 60 * 60 * 1000)
             
             if (searchOrder.account.status != 'free') {
                 throw ApiError.BadRequest('The account is rented or unavailable')

@@ -1,4 +1,4 @@
-import $api from './api'
+import $api from './Api'
 
 export const reviewService = {
   createReview: (reviewData) => $api.post('/reviews', reviewData),
