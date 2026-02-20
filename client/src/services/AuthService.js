@@ -22,7 +22,7 @@ export const authService = {
   getMe: () => $api.get('/auth/me'),
   
 
-  updateProfile: (profileData) => $api.put('/auth/profile', profileData),
+  updateProfile: (username) => $api.put('/auth/profile', {username}),
   
 
   changePassword: (email) => $api.put('/auth/change-password', {email}),

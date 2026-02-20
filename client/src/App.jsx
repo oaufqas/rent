@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom'
 import AppRouter from './router/AppRouter'
 import Loader from './components/ui/Loader/Loader'
 
-
 const App = observer(() => {
   
   const {store} = useContext(Context)

@@ -114,7 +114,6 @@ const RulesPage = () => {
             transition={{ delay: 0.5 }}
             className={styles.benefitsCard}
           >
-            <div className={styles.heartIcon}>❤️</div>
             <div className={styles.benefitsContent}>
               <h3 className={styles.benefitsTitle}>У меня лояльная аренда</h3>
               <p className={styles.benefitsText}>
@@ -155,7 +154,7 @@ const RulesPage = () => {
             </div>
 
             <div className={styles.prohibitedSection}>
-              <h3 className={styles.prohibitedTitle}>🔠 ЗАПРЕЩАЕТСЯ 🔠</h3>
+              <h3 className={styles.prohibitedTitle}>ЗАПРЕЩАЕТСЯ</h3>
               <ul className={styles.prohibitedList}>
                 <li>Самостоятельно донатить на аккаунт</li>
                 <li>Самовольно менять ник</li>

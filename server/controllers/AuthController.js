@@ -2,13 +2,6 @@ import ApiError from "../apiErrors/api-error.js"
 import userService from "../services/user-service.js"
 import { validationResult } from "express-validator"
 
-
-
-
-
-
-import db from '../config/models.js'
-
 class AuthController {
     async registration(req, res, next) {
         try {
@@ -129,7 +122,6 @@ class AuthController {
         try {
             const id = req.user.id
             const {username} = req.body
-            console.log(username)
 
             const userData = await userService.changeProfile(id, username)
 

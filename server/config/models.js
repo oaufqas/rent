@@ -45,10 +45,10 @@ const Account = sequelize.define('account', {
     description: {type: DataTypes.TEXT, allowNull: false},
     characters: {type: DataTypes.STRING, defaultValue: '{"bape":false,"crewUniform":false,"more300mif":false}', allowNull: false},
     price: {type: DataTypes.INTEGER, defaultValue: 200, allowNull: false},
-    status: {type: DataTypes.ENUM('rented', 'free', 'unavailable'), defaultValue: 'unavailable', allowNull: false},
+    status: {type: DataTypes.ENUM('rented', 'free', 'unavailable', 'deleted'), defaultValue: 'unavailable', allowNull: false},
     rentExpiresAt: {type: DataTypes.DATE, allowNull: true},
     img: {type: DataTypes.STRING, allowNull: false},
-    video: {type: DataTypes.STRING, allowNull: false}
+    video: {type: DataTypes.STRING, allowNull: true}
 })
 
 

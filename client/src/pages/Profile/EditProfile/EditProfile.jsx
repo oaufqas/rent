@@ -7,7 +7,7 @@ import Input from '../../../components/ui/Input/Input'
 import styles from './EditProfile.module.css'
 
 const EditProfile = observer(({ onClose }) => {
-  const { user, updateUser } = store
+  const { user, changeUserName, getOneUser } = store
   const [formData, setFormData] = useState({
     username: user?.username || '',
     email: user?.email || '',
@@ -49,10 +49,11 @@ const EditProfile = observer(({ onClose }) => {
     setSuccess('')
 
     try {
-      
-      
+      await changeUserName(formData.username)
+      window.location.reload()
     } catch (err) {
       setError(err.response?.data?.message || 'Ошибка обновления профиля')
+    } finally {
       setLoading(false)
     }
   }
@@ -76,34 +77,40 @@ const EditProfile = observer(({ onClose }) => {
         </div>
       )}
 
-      <div className={styles.avatarSection}>
-        <div className={styles.avatarPreview}>
-          <div className={styles.avatar}>
-            {formData.avatar ? (
-              <img 
-                src={URL.createObjectURL(formData.avatar)} 
-                alt="Avatar preview" 
-              />
-            ) : (
-              user?.username?.charAt(0).toUpperCase() || 'U'
-            )}
+      <div className={styles.disabledContainer}>
+        <div className={styles.disabledContent}>
+          <div className={styles.avatarSection}>
+            <div className={styles.avatarPreview}>
+              <div className={styles.avatar}>
+                {formData.avatar ? (
+                  <img 
+                    src={URL.createObjectURL(formData.avatar)} 
+                    alt="Avatar preview" 
+                  />
+                ) : (
+                  user?.username?.charAt(0).toUpperCase() || 'U'
+                )}
+              </div>
+            </div>
+          
+
+            <div className={styles.avatarUpload}>
+              <label className={styles.uploadLabel}>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className={styles.uploadInput}
+                />
+                Выбрать изображение
+              </label>
+              <p className={styles.uploadHint}>
+                Рекомендуемый размер: 200x200px
+              </p>
+            </div>
           </div>
         </div>
-        
-        <div className={styles.avatarUpload}>
-          <label className={styles.uploadLabel}>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className={styles.uploadInput}
-            />
-            Выбрать изображение
-          </label>
-          <p className={styles.uploadHint}>
-            Рекомендуемый размер: 200x200px
-          </p>
-        </div>
+        <div className={styles.disabledMessage}>Пока недоступно</div>
       </div>
 
       <Input
@@ -114,15 +121,20 @@ const EditProfile = observer(({ onClose }) => {
         placeholder="Введите новое имя пользователя"
       />
 
-      <Input
-        label="Email"
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        placeholder="your@email.com"
-        disabled
-      />
+      <div className={styles.disabledContainer}>
+        <div className={styles.disabledContent}>
+          <Input
+            label="Email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="your@email.com"
+            disabled
+          />
+        </div>
+        <div className={styles.disabledMessage}>Пока недоступно</div>
+      </div>
 
       <div className={styles.actions}>
         <Button

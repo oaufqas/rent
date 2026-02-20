@@ -32,8 +32,14 @@ class AccountService {
                 );
             }
 
+            whereConditions.push({ status: { [Op.ne]: 'deleted' } });
+
+            const whereClause = whereConditions.length > 0 
+                ? { [Op.and]: whereConditions } 
+                : { status: { [Op.ne]: 'deleted' } };
+
             const accsData = await db.Account.findAndCountAll({
-                where: whereConditions.length > 0 ? { [Op.and]: whereConditions } : {}
+                where: whereClause
             });
 
 
@@ -49,7 +55,12 @@ class AccountService {
     
     async getOneAccount(id) {
         try {
-            const accData = await db.Account.findByPk(id)
+            const accData = await db.Account.findOne({
+                where: {
+                    id: id,
+                    status: { [Op.ne]: 'deleted' }
+                }
+            })
 
             if (!accData) return res.json({"message": 'Account not found'})
 
@@ -62,16 +73,19 @@ class AccountService {
 
 
     async createAccount(account_number, title, description, characters, price, img, video, status) {
-        const pathToImg = await uploadService.uploadImg(img)
-        const pathToVideo = await uploadService.uploadVideo(video)
-        
         try {
-            const accData = await db.Account.create({account_number, title, description, characters, price, status, img: pathToImg, video: pathToVideo})
-            return accData
-
+            const pathToImg = await uploadService.uploadImg(img)
+            const pathToVideo = await uploadService.uploadVideo(video)
+            try {
+                const accData = await db.Account.create({account_number, title, description, characters, price, status, img: pathToImg, video: pathToVideo})
+                return accData
+    
+            } catch (e) {
+                if (pathToImg) await uploadService.deleteFile(pathToImg, 'img');
+                if (pathToVideo) await uploadService.deleteFile(pathToVideo, 'video');
+                throw ApiError.ElseError(e)
+            }
         } catch (e) {
-            if (pathToImg) await uploadService.deleteFile(pathToImg, 'img');
-            if (pathToVideo) await uploadService.deleteFile(pathToVideo, 'video');
             throw ApiError.ElseError(e)
         }
     }
@@ -126,11 +140,15 @@ class AccountService {
     
     async deleteAccount(id) {  
         try {
-            const deleted = await db.Account.destroy({
-                where: {id}
-            })
+            const deleted = await db.Account.findByPk(id)
 
-            if (deleted === 0) return res.json({"message": 'Account not found'})
+            if (!deleted) return res.json({"message": 'Account not found'})
+
+            if (deleted.video) {
+                await uploadService.deleteFile(deleted.video, 'video');
+            }
+
+            await deleted.update({status: 'deleted', account_number: deleted.account_number + 100000})
     
             return deleted
         } catch (e) {

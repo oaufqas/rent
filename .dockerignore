@@ -1,0 +1,15 @@
+node_modules
+dist
+.git
+npm-debug.log
+.env
+client/node_modules
+client/build
+client/dist
+server/node_modules
+*.log
+.gitignore
+README.md
+uploads
+endpoints.txt
+structure.txt

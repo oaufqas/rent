@@ -69,6 +69,17 @@ export default class Store {
         }
     }
 
+    async changeUserName(username) {
+        try {
+            const response = await authService.updateProfile(username)
+            
+            return response.data
+        } catch (e) {
+            console.error(e)
+            throw e
+        }
+    }
+
     getOneUser = async () => {
         this.setLoading(true)
         try {
@@ -104,7 +115,7 @@ export default class Store {
             this.setAuth(true)
             this.setUser(response.data.user)
         } catch (e) {
-            // console.error(e) 
+
         } finally {
             this.setLoading(false)
         }
