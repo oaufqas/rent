@@ -6,4 +6,4 @@ services:
       - "80:80"
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
-    command: certonly --stanalone --email ${EMAIL} --agree-tos --no-eff-email -d ${DOMAIN}
+    command: certonly --standalone --email ${EMAIL} --agree-tos --no-eff-email -d ${DOMAIN}
