@@ -17,7 +17,7 @@ COPY server/package*.json ./
 RUN npm install && npm cache clean --force
 
 COPY server/ ./server
-COPY --from=build ./dist ./client/dist
+COPY --from=build /client/dist ./client/dist
 
 EXPOSE 5000
 
