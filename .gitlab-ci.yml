@@ -4,7 +4,6 @@ stages:
 deploy:
   stage: deploy
   script:
-    - mkdir /rent
     - cd /rent
     - git pull gitlab master
     
