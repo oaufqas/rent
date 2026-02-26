@@ -2,9 +2,6 @@ networks:
   app-network:
     driver: bridge
 
-volumes:
-  mysql_data:
-
 services:
   mysql:
     image: mysql:8.0
@@ -13,7 +10,7 @@ services:
     networks:
       - app-network
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ./data:/var/lib/mysql
       - ./server/init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
