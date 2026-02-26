@@ -5,7 +5,7 @@ deploy:
   stage: deploy
   script:
     - cd /rent
-    - git pull origin main
+    - git pull gitlab master
     
     - echo "VITE_API_URL=${VITE_API_URL}" > client/.env
     
@@ -31,4 +31,4 @@ deploy:
     - docker compose down
     - docker compose up -d --build
   only:
-    - main
+    - master
