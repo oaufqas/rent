@@ -4,10 +4,9 @@ stages:
 deploy:
   stage: deploy
   before_script:
-    - cd /rent
-    - git config --global --add safe.directory "*"
+    - cd /app/rent
   script:
-    - git pull gitlab master
+    - git pull origin master
     
     - echo "VITE_API_URL=${VITE_API_URL}" > client/.env
     
