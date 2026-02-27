@@ -20,3 +20,8 @@ docker compose up
 cd ..
 fill in the .env in ./server and ./client files using the templates
 docker compose -env--file ./server/.env up -d
+
+
+first command deploy with gitlab-ci:
+
+sudo mkdir -p /rent && sudo chown gitlab-runner:gitlab-runner /rent && sudo usermod -aG docker gitlab-runner && sudo systemctl restart gitlab-runner && cd /rent && sudo -u gitlab-runner git clone https://gitlab.com/oaufqas/rent.git .
