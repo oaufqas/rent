@@ -10,7 +10,7 @@ deploy:
         echo "Directory /rent not found or not a git repo. Initializing..."
         sudo mkdir -p /rent
         sudo chown gitlab-runner:gitlab-runner /rent
-        git clone https://gitlab.com /rent
+        git clone https://github.com/oaufqas/rent.git /rent
       fi
     
     # 2. Переходим и обновляем код
