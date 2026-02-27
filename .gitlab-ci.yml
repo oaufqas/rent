@@ -3,13 +3,23 @@ stages:
 
 deploy:
   stage: deploy
-  before_script:
-    - cd /app/rent
   script:
+    # 1. Проверяем наличие папки. Если её нет — создаем и настраиваем права.
+    - |
+      if [ ! -d "/rent/.git" ]; then
+        echo "Directory /rent not found or not a git repo. Initializing..."
+        sudo mkdir -p /rent
+        sudo chown gitlab-runner:gitlab-runner /rent
+        git clone https://gitlab.com /rent
+      fi
+    
+    # 2. Переходим и обновляем код
+    - cd /rent
+    - git config --global --add safe.directory /rent
     - git pull origin master
     
+    # 3. Создаем конфигурационные файлы
     - echo "VITE_API_URL=${VITE_API_URL}" > client/.env
-    
     - |
       cat > server/.env << EOF
       PORT=${PORT}
@@ -23,12 +33,12 @@ deploy:
       JWT_REFRESH_KEY=${JWT_REFRESH_KEY}
       ADMIN_EMAIL=${ADMIN_EMAIL}
       MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-
       PROD=${PROD}
       GMAIL_USER=${GMAIL_USER}
       GMAIL_PASS=${GMAIL_PASS}
       EOF
     
+    # 4. Перезапуск контейнеров
     - docker compose down
     - docker compose up -d --build
   only:
