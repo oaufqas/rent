@@ -36,6 +36,8 @@ deploy:
       PROD=${PROD}
       GMAIL_USER=${GMAIL_USER}
       GMAIL_PASS=${GMAIL_PASS}
+      API_URL=${API_URL}
+      CLIENT_URL=${CLIENT_URL}
       EOF
     
     # 4. Перезапуск контейнеров
