@@ -5,20 +5,20 @@ export const usePriceCalculation = (basePricePerHour) => {
     let price = basePricePerHour * hours
 
     if (hours >= 24) {
-      price *= 0.45
+      price *= 0.35
     } else if (hours >= 12) {
-      price *= 0.65 
+      price *= 0.55 
     } else if (hours >= 6) {
-      price *= 0.90
+      price *= 0.80
     }
     
     return Math.round(price)
   }
 
   const calculateDiscount = (hours) => {
-    if (hours >= 24) return 55
-    if (hours >= 12) return 35
-    if (hours >= 6) return 10
+    if (hours >= 24) return 65
+    if (hours >= 12) return 45
+    if (hours >= 6) return 20
     return 0
   }
 

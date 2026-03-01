@@ -41,7 +41,8 @@ deploy:
       EOF
     
     # 4. Перезапуск контейнеров
-    - docker compose down
-    - docker compose up -d --build
+    - docker compose stop server nginx
+    - docker compose rm -f server nginx
+    - docker compose up -d --build server nginx
   only:
     - master
