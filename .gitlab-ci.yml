@@ -10,8 +10,9 @@ build:
     - docker:dind
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
-  script:
     - echo "VITE_API_URL=${VITE_API_URL}" > ./client/.env
+  script:
+    - cat ./client/.env
     - docker build -t $IMAGE_NAME .
     - docker push $IMAGE_NAME
   only:
