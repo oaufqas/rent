@@ -27,13 +27,10 @@ deploy:
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
   script:
-    - ansible-playbook -i inventory/production.yml \
-        -e "image_tag=$IMAGE_TAG" \
-        playbooks/deploy.yml
-  only:
-    - master
-  when:
-    - manual
+    - ansible-playbook -i inventory/production.yml -e "image_tag=$IMAGE_TAG" playbooks/deploy.yml
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: manual
 
 # stages:
 #   - build
