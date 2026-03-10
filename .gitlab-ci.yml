@@ -10,12 +10,8 @@ build:
     - docker:dind
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD
-    - echo "VITE_API_URL=https://kycaka.com/api" > ./client/.env
+    - echo "VITE_API_URL=${VITE_API_URL}" > ./client/.env
   script:
-    - pwd
-    - ls -la
-    - ls -la ./client
-    - cat ./client/.env
     - docker build -t $IMAGE_NAME .
     - docker push $IMAGE_NAME
   only:
@@ -36,7 +32,6 @@ deploy:
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       when: manual
-
 
 
 # stages:

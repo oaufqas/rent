@@ -18,7 +18,6 @@ RUN npm install && npm cache clean --force
 
 COPY server/ ./server
 COPY --from=build /client/dist ./client/dist
-COPY --from=build /client/.env ./.env
 
 EXPOSE 5000
 
