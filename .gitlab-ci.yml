@@ -18,7 +18,7 @@ build:
     - master
 
 
-deploy:
+.ssh-conection: &ssh-connection
   stage: deploy
   image: alpine:latest
   before_script:
@@ -27,11 +27,49 @@ deploy:
     - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
-  script:
-    - ansible-playbook -i inventory/production.yml -e "image_tag=$IMAGE_TAG" playbooks/deploy.yml
+    - echo "$VAULT_PASS" > ./ansible_deploy_rent/.vault_pass
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
-      when: manual
+
+
+full-server-setup:
+  <<: *ssh_connection
+  script:
+    - cd ansible_deploy_rent
+    - ansible-playbook \
+        --tags setup-server \
+        ans_deploy.yml \
+        --vault-password-file .vault_pass
+  when: manual
+
+
+deploy-app:
+  <<: *ssh_connection
+  script:
+    - cd ansible_deploy_rent
+    - ansible-playbook \
+        --tags deploy \
+        ans_deploy.yml \ 
+        --vault-password-file .vault_pass
+  when: on_success
+
+
+renew-ssl:
+  <<: *ssh_connection
+  script:
+    - cd ansible_deploy_rent
+    - ansible-playbook \
+        --tags ssl \
+        ans_deploy.yml \
+        --vault-password-file .vault_pass
+  when: manual
+
+
+
+
+
+
+
 
 
 # stages:
