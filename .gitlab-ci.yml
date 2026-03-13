@@ -26,7 +26,7 @@ build:
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
-    - ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
+    - ssh-keyscan $DOMAIN >> ~/.ssh/known_hosts
     - echo "$VAULT_PASS" > ./ansible_deploy_rent/.vault_pass
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
