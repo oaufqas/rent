@@ -18,7 +18,7 @@ build:
     - master
 
 
-.ssh-conection: &ssh-connection
+.ssh_conection: &ssh_connection
   stage: deploy
   image: alpine:latest
   before_script:
