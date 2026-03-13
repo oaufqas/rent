@@ -36,10 +36,7 @@ full-server-setup:
   <<: *ssh_connection
   script:
     - cd ansible_deploy_rent
-    - ansible-playbook \
-        --tags setup-server \
-        ans_deploy.yml \
-        --vault-password-file .vault_pass
+    - ansible-playbook --tags setup-server ans_deploy.yml --vault-password-file .vault_pass
   when: manual
 
 
@@ -50,10 +47,7 @@ deploy-app:
     - ls -la
     - ls -la ./ansible_deploy_rent
     - cd ansible_deploy_rent
-    - ansible-playbook \
-        --tags deploy \
-        ans_deploy.yml \ 
-        --vault-password-file .vault_pass
+    - ansible-playbook --tags deploy ans_deploy.yml --vault-password-file .vault_pass
   when: on_success
 
 
@@ -61,10 +55,7 @@ renew-ssl:
   <<: *ssh_connection
   script:
     - cd ansible_deploy_rent
-    - ansible-playbook \
-        --tags ssl \
-        ans_deploy.yml \
-        --vault-password-file .vault_pass
+    - ansible-playbook --tags ssl ans_deploy.yml --vault-password-file .vault_pass
   when: manual
 
 
