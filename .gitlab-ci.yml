@@ -36,17 +36,19 @@ full-server-setup:
   <<: *ssh_connection
   script:
     - cd ansible_deploy_rent
-    - ansible-playbook --tags setup-server ans_deploy.yml --vault-password-file .vault_pass
+    - ansible-playbook --tags setup-server ssl deploy ans_deploy.yml --vault-password-file .vault_pass
   when: manual
 
 
 deploy-app:
   <<: *ssh_connection
   script:
-    - pwd
-    - ls -la
-    - ls -la ./ansible_deploy_rent
     - cd ansible_deploy_rent
+    - |
+      ssh $DOMAIN "docker ps" || {
+        echo "Server not ready! Run full-server-setup first"
+        exit 1
+      }
     - ansible-playbook --tags deploy ans_deploy.yml --vault-password-file .vault_pass
   when: on_success
 
