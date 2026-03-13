@@ -46,6 +46,9 @@ full-server-setup:
 deploy-app:
   <<: *ssh_connection
   script:
+    - pwd
+    - ls -la
+    - ls -la ./ansible_deploy_rent
     - cd ansible_deploy_rent
     - ansible-playbook \
         --tags deploy \
