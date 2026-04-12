@@ -69,16 +69,21 @@ app.use((req, res, next) => {
 })
 
 const start = async () => {
-    try {
-        await sequelize.authenticate()
-        console.log('database connected')
-        // await sequelize.sync({alter: true})
-        app.listen(PORT, HOST, () => {
-            console.log(`server started on http://${HOST}:${PORT}`)
-        })
-    } catch (e) {
-        console.error(e)
-    }
-}
+    app.listen(PORT, HOST, () => {
+        console.log(`Server process started on http://${HOST}:${PORT}`);
+    });
+
+    const connectWithRetry = async () => {
+        try {
+            await sequelize.authenticate();
+            console.log('Database connected successfully');
+        } catch (e) {
+            console.error('Database connection failed, retrying in 5 seconds...', e.message);
+            setTimeout(connectWithRetry, 5000);
+        }
+    };
+
+    connectWithRetry();
+};
 
 start()
