@@ -54,10 +54,10 @@ app.use(cookieParser())
 app.use('/api/img', express.static(path.join(__dirname, '..', 'uploads', 'img')))
 app.use('/api/video', express.static(path.join(__dirname, '..', 'uploads', 'video')))
 
+app.use('/api', router)
+
 app.use('/assets', express.static(path.join(__dirname, '..', 'client', 'dist', 'assets')))
 app.use(express.static(path.join(__dirname, '..', 'client', 'dist')))
-
-app.use('/api', router)
 
 app.use(errorMiddleware)
 
