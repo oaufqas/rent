@@ -68,7 +68,17 @@ app.use((req, res, next) => {
     res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'))
 })
 
+app.use((req, res, next) => {
+    if (!isDbConnected && req.path !== '/status') {
+        return res.status(503).send('Сервер еще загружается, подождите...');
+    }
+    next();
+});
+
+let isDbConnected = false; // Флаг готовности
+
 const start = async () => {
+    // 1. Запускаем сервер
     app.listen(PORT, HOST, () => {
         console.log(`Server process started on http://${HOST}:${PORT}`);
     });
@@ -76,9 +86,12 @@ const start = async () => {
     const connectWithRetry = async () => {
         try {
             await sequelize.authenticate();
-            console.log('Database connected successfully');
+            // 2. Только после успеха синхронизируем модели
+            await sequelize.sync(); 
+            isDbConnected = true; 
+            console.log('Database connected and synced');
         } catch (e) {
-            console.error('Database connection failed, retrying in 5 seconds...', e.message);
+            console.error('Database connection failed, retrying...', e.message);
             setTimeout(connectWithRetry, 5000);
         }
     };
