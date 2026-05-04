@@ -2,11 +2,14 @@ node_modules/
 uploads/
 dist/
 npm-debug.log*
-
 structure.txt
 .env
-
 logs
 *.log
-
 jspm_packages/
+
+.terraform*
+terraform.tfstate*
+terraform.tfvars
+
+values-prod.yaml

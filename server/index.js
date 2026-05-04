@@ -75,10 +75,9 @@ app.use((req, res, next) => {
     next();
 });
 
-let isDbConnected = false; // Флаг готовности
+let isDbConnected = false;
 
 const start = async () => {
-    // 1. Запускаем сервер
     app.listen(PORT, HOST, () => {
         console.log(`Server process started on http://${HOST}:${PORT}`);
     });
@@ -86,7 +85,6 @@ const start = async () => {
     const connectWithRetry = async () => {
         try {
             await sequelize.authenticate();
-            // 2. Только после успеха синхронизируем модели
             await sequelize.sync(); 
             isDbConnected = true; 
             console.log('Database connected and synced');
@@ -94,9 +92,8 @@ const start = async () => {
             console.error('Database connection failed, retrying...', e.message);
             setTimeout(connectWithRetry, 5000);
         }
-    };
-
+    }
     connectWithRetry();
-};
+}
 
 start()
