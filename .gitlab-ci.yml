@@ -35,7 +35,7 @@ update_manifests:
     - git diff --quiet && exit 0
 
     - git add values.yaml
-    - git commit -m "cd: update app image tag to $CI_COMMIT_SHORT_SHA"
+    - git commit -m "CD update app image tag to $CI_COMMIT_SHORT_SHA"
     - git push origin master
 
 
