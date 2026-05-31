@@ -34,7 +34,7 @@ update_manifests:
     - yq -i '.server.container.tag = "'$CI_COMMIT_SHORT_SHA'"' values.prod.yaml
     - git diff --quiet && exit 0
 
-    - git add values-prod.yaml
+    - git add values.prod.yaml
     - git commit -m "CD update app image tag to $CI_COMMIT_SHORT_SHA"
     - git push origin master
 
