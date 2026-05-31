@@ -23,7 +23,7 @@ const HeroSection = () => {
             transition={{ delay: 0.2 }}
             className={styles.title}
           >
-            zxc
+            Аренда <span className={styles.accent}>игровых аккаунтов</span>
             <br />с гарантией безопасности
           </motion.h1>
           
