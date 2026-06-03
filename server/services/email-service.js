@@ -4,36 +4,13 @@ class EmailService {
 
     constructor() {
         try {
-            if (process.env.PROD == 'true') {
-                this.transporter = nodemailer.createTransport({
-                    host: 'smtp.timeweb.ru',
-                    port: 465,
-                    secure: true,
-                    auth: {
-                        user: process.env.GMAIL_USER,
-                        pass: process.env.GMAIL_PASS
-                    },
-    
-                    tls: {
-                        rejectUnauthorized: false
-                    },
-                    connectionTimeout: 10000,
-                    greetingTimeout: 10000,
-                    socketTimeout: 30000
-                })
-    
-                this.verifyConnection()
-
-            } else {
-                this.transporter = nodemailer.createTransport({
-                    service: 'gmail',
-                    auth: {
-                        user: process.env.GMAIL_USER,
-                        pass: process.env.GMAIL_PASS
-                    }
-                })
-            }
-
+            this.transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.GMAIL_USER,
+                    pass: process.env.GMAIL_PASS
+                }
+            })
         } catch (e) {
                 console.error(e)
         }
